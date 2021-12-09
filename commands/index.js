@@ -1,9 +1,10 @@
 import demo from "./demo.js";
-import create from "./create.js";
-import run from "./run.js";
+import createProject from "./create-project.js";
+import develop from "./develop.js";
+
 
 export default {
   demo,
-  create,
-  run
+  createProject,
+  develop
 };

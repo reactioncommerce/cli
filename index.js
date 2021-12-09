@@ -12,10 +12,12 @@ program
   });
 
 program
-  .command("create")
-  .argument("<project>", "which project type to create")
-  .action((project) => {
-    commands.create(project);
+  .command("create-project")
+  .argument("<type>", "which project type to create")
+  .argument("<name>", "what to name the project")
+  .option("--populate")
+  .action((type, name, options) => {
+    commands.createProject(type, name, options);
   });
 
 program.parse(process.argv);
