@@ -1,0 +1,35 @@
+{
+  "name": "moccli",
+  "version": "1.0.0",
+  "description": "A command line client for creating and managing MOC projects",
+  "main": "index.js",
+  "bin": {
+    "moccli": "index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "mocha",
+    "lint": "eslint ."
+  },
+  "author": "brent@thebuddhalodge.com",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "command-exists": "^1.2.9",
+    "commander": "^8.3.0",
+    "fs-extra": "^10.0.0",
+    "jest": "^27.3.1",
+    "meant": "^2.0.1",
+    "simple-git": "^2.47.0",
+    "update-notifier": "^5.1.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.2.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jest": "^25.2.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.1",
+    "mocha": "^9.1.3"
+  }
+}
