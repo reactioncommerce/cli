@@ -1,4 +1,5 @@
-import { copyFile, readdir, mkdir, writeFile } from "fs/promises";
+import { mkdir, writeFile } from "fs/promises";
+import { copy } from "fs-extra";
 import simpleGit from "simple-git";
 import wget from "../utils/wget.js";
 import pathExists from "../utils/pathExists.js";
@@ -17,19 +18,6 @@ async function makeProject(projectName) {
   // create utils directory
   await mkdir(`${projectName}/utils`);
   await mkdir(`${projectName}/custom-packages`);
-}
-
-/**
- * @summary copy files from template directory to project directory
- * @param {String} projectName - The project directory name
- * @returns {Promise<string[]>} An array of files copied
- */
-async function copyTemplateDir(projectName) {
-  const files = await readdir("./templates/api-project");
-  files.forEach((file) => {
-    copyFile(`./templates/api-project/${file}`, `./${projectName}/${file}`);
-  });
-  return files;
 }
 
 
@@ -86,10 +74,16 @@ async function getFilesFromCore(projectName) {
   await writeFile(`${projectName}/package.json`, updatedPackageJson);
 
   const pluginsJson = await getFileFromCore("plugins.json");
-  await writeFile(`${projectName}/plugins.json`, pluginsJson);
+  // Add example plugin to plugins.json
+  const pluginsData = JSON.parse(pluginsJson);
+  pluginsData.example = "./custom-packages/simple-example/index.js";
+  await writeFile(`${projectName}/plugins.json`, JSON.stringify(pluginsData, null, 2));
 
   const checkNode = await getFileFromCore("src/checkNodeVersion.cjs");
   await writeFile(`${projectName}/utils/checkNodeVersion.sjs`, checkNode);
+
+  const nvmrc = await getFileFromCore(".nvmrc");
+  await writeFile(`${projectName}/.nvmrc`, nvmrc);
   return true;
 }
 
@@ -130,7 +124,7 @@ export default async function createProjectApi(projectName, options) {
   await makeProject(projectName);
 
   // copy files from local template (this may also eventually come from core, so it's all in one place)
-  await copyTemplateDir(projectName);
+  await copy("./templates/api-project/", projectName);
 
   // copy files directly from core that we want to be current
   await getFilesFromCore(projectName);
