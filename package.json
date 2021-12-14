@@ -1,7 +1,7 @@
 {
-  "name": "moccli",
+  "name": "cli",
   "version": "1.0.0",
-  "description": "A command line client for creating and managing MOC projects",
+  "description": "A command line client for creating and managing Open Commerce projects",
   "main": "index.js",
   "bin": {
     "moccli": "index.js"
@@ -20,6 +20,7 @@
     "fs-extra": "^10.0.0",
     "jest": "^27.3.1",
     "meant": "^2.0.1",
+    "node-fetch": "^3.1.0",
     "simple-git": "^2.47.0",
     "update-notifier": "^5.1.0"
   },
