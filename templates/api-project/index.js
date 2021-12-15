@@ -1,4 +1,5 @@
 import { importPluginsJSONFile, ReactionAPICore } from "@reactioncommerce/api-core";
+import dotenv from "dotenv";
 import Logger from "@reactioncommerce/logger";
 import packageJson from "./package.json";
 
@@ -12,8 +13,8 @@ const api = new ReactionAPICore({
  * @return {Promise<undefined>} undefined
  */
 async function runApp() {
+  dotenv.config();
   const plugins = await importPluginsJSONFile("./plugins.json");
-
   await api.registerPlugins(plugins);
   await api.start();
 }

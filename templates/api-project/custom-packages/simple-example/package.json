@@ -13,6 +13,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@reactioncommerce/api-utils": "^1.16.9"
+    "@reactioncommerce/api-utils": "^1.16.9",
+    "@reactioncommerce/logger": "^1.1.3"
   }
 }

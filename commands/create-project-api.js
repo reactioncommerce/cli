@@ -40,7 +40,7 @@ async function rewriteScripts(packageJson, projectName) {
   };
   const packageData = JSON.parse(packageJson);
   packageData.scripts = newScripts;
-  packageData.name = projectName
+  packageData.name = projectName;
   delete packageData.release;
   delete packageData.homepage;
   delete packageData.url;
@@ -80,10 +80,13 @@ async function getFilesFromCore(projectName) {
   await writeFile(`${projectName}/plugins.json`, JSON.stringify(pluginsData, null, 2));
 
   const checkNode = await getFileFromCore("src/checkNodeVersion.cjs");
-  await writeFile(`${projectName}/utils/checkNodeVersion.sjs`, checkNode);
+  await writeFile(`${projectName}/utils/checkNodeVersion.cjs`, checkNode);
 
   const nvmrc = await getFileFromCore(".nvmrc");
   await writeFile(`${projectName}/.nvmrc`, nvmrc);
+
+  const dotenv = await getFileFromCore(".env.example");
+  await writeFile(`${projectName}/.env`, dotenv);
   return true;
 }
 
