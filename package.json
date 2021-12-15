@@ -8,12 +8,13 @@
   },
   "type": "module",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha ./tests/*.*",
     "lint": "eslint ."
   },
   "author": "brent@thebuddhalodge.com",
   "license": "MIT",
   "dependencies": {
+    "chai": "^4.3.4",
     "chalk": "^4.1.2",
     "command-exists": "^1.2.9",
     "commander": "^8.3.0",
