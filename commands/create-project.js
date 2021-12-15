@@ -1,3 +1,4 @@
+import checkDependencies from "../utils/checkDependencies.js";
 import createProjectApi from "./create-project-api.js";
 import createProjectAdmin from "./create-project-admin.js";
 import createProjectStorefront from "./create-project-storefront.js";
@@ -16,6 +17,9 @@ const methodMap = {
  * @returns {Promise<Boolean>} - True if success
  */
 export default async function createProject(projectType, projectName, options) {
-  const results = await methodMap[projectType](projectName, options);
-  return results;
+  if (await checkDependencies()) {
+    const results = await methodMap[projectType](projectName, options);
+    return results;
+  }
+  return false;
 }
