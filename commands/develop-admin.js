@@ -19,7 +19,6 @@ export default async function developAdmin(options) {
     if (signal === "SIGINT") {
       Logger.warn("Shutting down from Ctrl-C");
     }
-    await spawn("docker-compose", ["down"], { PORT: 4080 });
     done();
   });
 
