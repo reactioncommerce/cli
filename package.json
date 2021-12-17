@@ -19,6 +19,7 @@
     "command-exists": "^1.2.9",
     "commander": "^8.3.0",
     "concat-stream": "^2.0.0",
+    "diehard": "^1.5.2",
     "fs-extra": "^10.0.0",
     "jest": "^27.3.1",
     "meant": "^2.0.1",
