@@ -8,6 +8,13 @@ beforeEach(async () => {
   await rimraf.sync("./mydir");
 });
 
+
+describe("the tests should run", () => {
+  it("and not fail", () => {
+    expect(true).to.be.true;
+  });
+});
+
 describe("the node used for tests", () => {
   it("should be 14 or 16", async () => {
     const response = await execute(
