@@ -1,16 +1,21 @@
+/* eslint-disable jest/valid-expect */
 import { EOL } from "os";
+import rimraf from "rimraf";
 import { expect } from "chai";
 import execute from "./utils/execute.js";
 
+beforeEach(async () => {
+  await rimraf.sync("./mydir");
+});
 
-describe("check what node we're using", () => {
+describe("the node used for tests", () => {
   it("should be 14 or 16", async () => {
     const response = await execute(
       "--version",
       []
     );
     // eslint-disable-next-line jest/valid-expect
-    expect(response.trim()).to.equal("boo");
+    expect(response.trim().split(".")[0]).to.oneOf(["v16", "v14"]);
   });
 });
 
@@ -20,10 +25,9 @@ describe("The create-project-api command", () => {
       "./index.js",
       ["create-project", "api", "mydir"]
     );
+    const responseLines = response.trim().split(EOL);
     // eslint-disable-next-line jest/valid-expect
-    expect(response.trim().split(EOL)).to.have.all.keys(
-      "cli: {\"projectName\":\"mydir\",\"options\":{}}: Creating API project",
-      "cli: \"Project creation complete. Change to your directory and run `npm install`\": undefined"
-    );
-  });
+    expect(responseLines[0]).to.equal("cli: {\"projectName\":\"mydir\",\"options\":{}}: Creating API project");
+    expect(responseLines[1]).to.equal("cli: \"Project creation complete. Change to your directory and run `npm install`\": undefined");
+  }).timeout(5000);
 });
