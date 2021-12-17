@@ -17,5 +17,5 @@ export default function createProcess(processPath, args = [], env = null) {
       },
       env
     )
-  });
+  }).on("error", (error) => { throw error; });
 }
