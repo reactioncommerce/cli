@@ -1,3 +1,4 @@
+import checkDependencies from "../utils/checkDependencies.js";
 import developStorefront from "./develop-storefront.js";
 import developAdmin from "./develop-admin.js";
 import developApi from "./develop-api.js";
@@ -16,5 +17,8 @@ const functionMap = {
  * @returns {Promise<Boolean>} True for success
  */
 export default async function develop(projectType, options) {
-  await functionMap[projectType](options);
+  if (await checkDependencies()) {
+    return functionMap[projectType](options);
+  }
+  return false;
 }
