@@ -1,3 +1,4 @@
+import Logger from "../utils/logger.js";
 import checkDependencies from "../utils/checkDependencies.js";
 import createProjectApi from "./create-project-api.js";
 import createProjectAdmin from "./create-project-admin.js";
@@ -17,9 +18,11 @@ const methodMap = {
  * @returns {Promise<Boolean>} - True if success
  */
 export default async function createProject(projectType, projectName, options) {
-  if (await checkDependencies()) {
+  const dependenciesOk = await checkDependencies();
+  if (dependenciesOk) {
     const results = await methodMap[projectType](projectName, options);
     return results;
   }
+  Logger.error("Dependency check failed. Command could not complete");
   return false;
 }
