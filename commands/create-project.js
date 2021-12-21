@@ -10,6 +10,10 @@ const methodMap = {
   storefront: createProjectStorefront
 };
 
+const extraDependencyMap = {
+  storefront: ["yarn"]
+};
+
 /**
  * @summary create one of the project types
  * @param {String} projectType - One of the project types
@@ -18,7 +22,7 @@ const methodMap = {
  * @returns {Promise<Boolean>} - True if success
  */
 export default async function createProject(projectType, projectName, options) {
-  const dependenciesOk = await checkDependencies();
+  const dependenciesOk = await checkDependencies(extraDependencyMap[projectType]);
   if (dependenciesOk) {
     const results = await methodMap[projectType](projectName, options);
     return results;

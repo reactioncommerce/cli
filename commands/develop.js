@@ -9,6 +9,10 @@ const functionMap = {
   storefront: developStorefront
 };
 
+const extraDependencyMap = {
+  storefront: ["yarn"]
+};
+
 
 /**
  * @summary Run api in development mode
@@ -17,7 +21,8 @@ const functionMap = {
  * @returns {Promise<Boolean>} True for success
  */
 export default async function develop(projectType, options) {
-  if (await checkDependencies()) {
+  const dependenciesOk = await checkDependencies(extraDependencyMap[projectType]);
+  if (dependenciesOk) {
     return functionMap[projectType](options);
   }
   return false;
