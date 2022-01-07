@@ -4,7 +4,7 @@
   "description": "A command line client for creating and managing Open Commerce projects",
   "main": "index.js",
   "bin": {
-    "moccli": "index.js"
+    "reaction": "index.js"
   },
   "type": "module",
   "scripts": {
