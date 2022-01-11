@@ -8,7 +8,7 @@ import chalk from "chalk";
  * @param {String} msg - String to display
  * @returns {undefined} undefined
  */
-function info(obj, msg) {
+function info(obj, msg = {}) {
   if (obj) {
     const stringifiedObj = JSON.stringify(obj, 2, null);
     console.log(chalk.blue(`cli: ${stringifiedObj}: ${msg}`));
