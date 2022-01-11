@@ -1,0 +1,51 @@
+version: "3.4"
+
+
+services:
+  api:
+    image: reactioncommerce/reaction:latest
+    depends_on:
+      - mongo
+    env_file:
+      - ./.core.env
+    networks:
+      default:
+    ports:
+      - "3000:3000"
+
+  storefront:
+    image: reactioncommerce/example-storefront:5.1.1
+    env_file:
+      - ./.storefront.env
+    networks:
+      default:
+    ports:
+      - "4000:4000"
+
+  admin:
+    image: reactioncommerce/admin:4.0.0-beta.15
+    env_file:
+      - ./.admin.env
+    networks:
+      default:
+    ports:
+      - "4080:4080"
+      - "9231:9229"
+
+  mongo:
+    image: mongo:4.4.0
+    command: mongod --oplogSize 128 --replSet rs0 --storageEngine=wiredTiger
+    networks:
+      default:
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-db4:/data/db
+    healthcheck: # re-run rs.initiate() after startup if it failed.
+      test: test $$(echo "rs.status().ok || rs.initiate().ok" | mongo --quiet) -eq 1
+      interval: 10s
+      start_period: 30s
+
+
+volumes:
+  mongo-db4:

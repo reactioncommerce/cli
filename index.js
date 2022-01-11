@@ -5,10 +5,13 @@ import commands from "./commands/index.js";
 
 const program = new commander.Command();
 
+program.version("1.0.0");
+
 program
-  .version("1.0.0")
-  .command("demo").action(() => {
-    commands.demo();
+  .command("demo")
+  .argument("<path>", "Where to copy the demo files")
+  .action((path) => {
+    commands.demo(path);
   });
 
 program
