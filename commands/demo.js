@@ -41,5 +41,9 @@ export default async function demo(demoPath) {
   });
 
   diehard.listen();
-  Logger.info("Run `docker-compose down` to stop");
+  Logger.info("After a few seconds the following sites should be available");
+  Logger.info("API Server on localhost:3000");
+  Logger.info("Admin panel on localhost:4080");
+  Logger.info("Example Storefront on localhost:4000");
+  Logger.info("Run cd <mydemo directory> and then docker-compose down to stop");
 }
