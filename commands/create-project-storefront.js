@@ -10,10 +10,10 @@ import Logger from "../utils/logger.js";
  * @returns {Boolean} true for success
  */
 export default async function createProjectStorefront(projectName, options) {
-  Logger.info({
+  Logger.info("Creating Storefront", {
     projectName,
     options
-  }, "Creating Storefront");
+  });
   const gitOptions = {
     baseDir: `${process.cwd()}`,
     binary: "git",
@@ -26,6 +26,6 @@ export default async function createProjectStorefront(projectName, options) {
     Logger.error(error);
   }
   await copy(`${projectName}/.env.example`, `${projectName}/.env`);
-  Logger.info("Storefront project created. You can change to this directory and run `npm install`");
+  Logger.success("Storefront project created. You can change to this directory and run `npm install`");
   return true;
 }
