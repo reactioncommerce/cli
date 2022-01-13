@@ -3,12 +3,12 @@ import diehard from "diehard";
 import Logger from "../utils/logger.js";
 
 /**
- * @summary clones projects locally from repo
+ * @summary run project in development mode
  * @param {Object} options - Any options for project creation
  * @returns {Boolean} true for success
  */
 export default async function developApi(options) {
-  Logger.info({ options }, "starting development on api");
+  Logger.info({ options }, "Starting development on api");
   Logger.info("Starting Mongo docker image");
   const mongo = spawn("docker-compose", ["up", "-d"]);
   mongo.stdout.on("data", (data) => {

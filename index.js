@@ -28,4 +28,12 @@ program
     commands.develop(type, options);
   });
 
+program
+  .command("build")
+  .addArgument(new commander.Argument("[type]", "which project type to develop on").choices(["api", "storefront", "admin"]).default("api"))
+  .option("--debug")
+  .action((type, options) => {
+    commands.build(type, options);
+  });
+
 program.parse(process.argv);
