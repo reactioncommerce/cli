@@ -1,45 +1,54 @@
 import chalk from "chalk";
 
+const cliName = "reaction-cli";
+
 /* eslint-disable no-console */
 
 /**
- * @summary info logger
- * @param {Object} obj = An object of any extra data
+ * @summary generic logger
+ * @param {String} color - The color to output the log message
  * @param {String} msg - String to display
+ * @param {Object} obj - An object of any extra data
  * @returns {undefined} undefined
  */
-function info(obj, msg) {
-  if (obj) {
-    const stringifiedObj = JSON.stringify(obj, 2, null);
-    console.log(chalk.blue(`cli: ${stringifiedObj}: ${msg}`));
+function log(color, msg, obj = "") {
+  if (obj && typeof obj === "object") {
+    const stringifiedObj = JSON.stringify(obj, null, 0);
+    console.log((`${chalk.blueBright(cliName)}: ${chalk[color](msg)}: ${chalk[color](stringifiedObj)})`));
   } else {
-    console.log(chalk.blue(`cli: ${msg}`));
+    console.log((`${chalk.blueBright(cliName)}: ${chalk[color](msg)}`));
   }
+}
+
+/**
+ * @summary info logger
+ * @param {String} msg - String to display
+ * @param {Object} obj = An object of any extra data
+ * @returns {undefined} undefined
+ */
+function info(msg, obj) {
+  log("blue", msg, obj);
 }
 
 const loggers = {
   info,
-  success(msg) {
-    console.log(chalk.green(`cli: ${msg}`));
+  success(msg, obj = "") {
+    log("green", msg, obj);
   },
-  warn(msg) {
-    console.log(chalk.yellow(`cli: ${msg}`));
+  warn(msg, obj = "") {
+    log("yellow", msg, obj);
   },
-  error(msg) {
-    console.log(chalk.bold.red(`cli: ${msg}`));
+  error(msg, obj = "") {
+    log("red", msg, obj);
   },
-  debug(msg) {
+  debug(msg, obj = "") {
+    let debugMessage;
     if (process.env.REACTION_CLI_DEBUG === "true") {
-      console.log(chalk.yellow("[DEBUG]:"), msg);
+      debugMessage = `[DEBUG] ${msg}`;
+    } else {
+      debugMessage = msg;
     }
-  },
-  args(args) {
-    if (process.env.REACTION_CLI_DEBUG === "true") {
-      console.log(chalk.yellow("\n[CLI Debug]\n\n"), args, "\n");
-    }
-  },
-  default(msg) {
-    console.log(`cli: ${msg}`);
+    log("cyan", debugMessage, obj);
   }
 };
 

@@ -118,7 +118,7 @@ async function gitInitDirectory(projectName) {
  * @returns {Boolean} true for success
  */
 export default async function createProjectApi(projectName, options) {
-  Logger.info({ projectName, options }, "Creating API project");
+  Logger.info("Creating API project", { projectName, options });
   if (await pathExists(projectName)) {
     Logger.error(`Cannot create directory ${projectName}, already exists`);
     return;
@@ -135,5 +135,5 @@ export default async function createProjectApi(projectName, options) {
   // git init the new project
   await gitInitDirectory(projectName);
 
-  Logger.info("Project creation complete. Change to your directory and run `npm install`");
+  Logger.success("Project creation complete. Change to your directory and run `npm install`");
 }

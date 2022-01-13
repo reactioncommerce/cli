@@ -6,5 +6,5 @@ import Logger from "../utils/logger.js";
  * @returns {Promise<Boolean>} True for success
  */
 export default async function createPlugin(pluginName) {
-  Logger.info({ pluginName }, "Creating plugin");
+  Logger.info("Creating plugin", { pluginName });
 }

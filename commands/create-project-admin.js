@@ -10,7 +10,7 @@ import Logger from "../utils/logger.js";
  * @returns {Boolean} true for success
  */
 export default async function createProjectAdmin(projectName, options) {
-  Logger.info({ projectName, options }, "Creating admin");
+  Logger.info("Creating admin", { projectName, options });
   const gitOptions = {
     baseDir: `${process.cwd()}`,
     binary: "git",
@@ -23,7 +23,7 @@ export default async function createProjectAdmin(projectName, options) {
     Logger.error(error);
   }
   await copy(`${projectName}/.env.example`, `${projectName}/.env`);
-  Logger.info("Admin project created. You can change to this directory and run `npm install`");
+  Logger.success("Admin project created. You can change to this directory and run `npm install`");
   return true;
 }
 
