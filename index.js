@@ -12,6 +12,11 @@ program
   });
 
 program
+  .command("logcheck").action(() => {
+    commands.logcheck();
+  });
+
+program
   .command("create-project")
   .addArgument(new commander.Argument("<type>", "which project type to create").choices(["api", "storefront", "admin"]))
   .argument("<name>", "what to name the project")
