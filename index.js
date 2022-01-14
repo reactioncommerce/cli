@@ -26,6 +26,14 @@ program
   });
 
 program
+  .command("create-plugin")
+  .addArgument(new commander.Argument("<type>", "which project type to create").choices(["api", "admin"]))
+  .argument("<name>", "what to name the plugin")
+  .action((type, name, options) => {
+    commands.createPlugin(type, name, options);
+  });
+
+program
   .command("develop")
   .addArgument(new commander.Argument("[type]", "which project type to develop on").choices(["api", "storefront", "admin"]).default("api"))
   .option("--debug")
