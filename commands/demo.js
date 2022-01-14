@@ -4,6 +4,8 @@ import { spawn } from "child_process";
 import { copy } from "fs-extra";
 import diehard from "diehard";
 import Logger from "../utils/logger.js";
+import portCheck from "../utils/portCheck.js";
+import pathExists from "../utils/pathExists.js";
 
 /**
  * @summary create project directory
@@ -18,10 +20,22 @@ async function createDemoDirectory(demoPath) {
 
 /**
  * @summary download demo files and runs docker-compose
- * @returns {undefined} undefined
- * @param {String} demoPath - Where to create the demo directory
+ * @param {String} demoPath - Where to create
+ * @returns {Boolean} true if successful
+ the demo directory
  */
 export default async function demo(demoPath) {
+  if (await pathExists(demoPath)) {
+    Logger.error(`Cannot create directory ${demoPath}, already exists`);
+    return false;
+  }
+  const { portsResults, portsMap } = await portCheck();
+  const portsAvailable = !portsResults.some((portResults) => portResults === true);
+  if (!portsAvailable) {
+    Logger.error("One of the ports (3000/4000/4080) required to run this project are already in use");
+    Logger.error("Cannot continue", portsMap);
+    return false;
+  }
   await createDemoDirectory(demoPath);
   await copy("./templates/demo/", demoPath);
   const options = {
@@ -46,4 +60,5 @@ export default async function demo(demoPath) {
   Logger.info("Admin panel on localhost:4080");
   Logger.info("Example Storefront on localhost:4000");
   Logger.info("Run cd <mydemo directory> and then docker-compose down to stop");
+  return true;
 }

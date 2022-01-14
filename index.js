@@ -15,6 +15,12 @@ program
   });
 
 program
+  .command("demo-destroy")
+  .action(() => {
+    commands.demoDestroy();
+  });
+
+program
   .command("logcheck").action(() => {
     commands.logcheck();
   });
