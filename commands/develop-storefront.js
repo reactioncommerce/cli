@@ -8,7 +8,7 @@ import Logger from "../utils/logger.js";
  * @returns {Boolean} true for success
  */
 export default async function developStorefront(options) {
-  Logger.info({ options }, "Starting Open Commerce Admin Application Server in dev mode");
+  Logger.info("Starting Open Commerce Admin Application Server in dev mode", { options });
   const api = spawn("yarn", ["run", "start:dev"]);
   api.stdout.on("data", (data) => {
     // eslint-disable-next-line no-console
