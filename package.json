@@ -20,7 +20,9 @@
     "command-exists": "^1.2.9",
     "commander": "^8.3.0",
     "concat-stream": "^2.0.0",
+    "configstore": "^6.0.0",
     "diehard": "^1.5.2",
+    "envalid": "^7.2.2",
     "fs-extra": "^10.0.0",
     "jest": "^27.3.1",
     "meant": "^2.0.1",
@@ -28,7 +30,9 @@
     "npm-check": "^5.9.2",
     "rimraf": "^3.0.2",
     "simple-git": "^2.48.0",
-    "update-notifier": "^5.1.0"
+    "universal-analytics": "^0.5.3",
+    "update-notifier": "^5.1.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",

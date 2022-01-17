@@ -1,0 +1,28 @@
+import fs from "fs";
+import { v4 as uuidv4 } from "uuid";
+import Configstore from "configstore";
+import Logger from "./logger.js";
+
+const packageJson = JSON.parse(fs.readFileSync("./package.json", "utf8"));
+const config = new Configstore(packageJson.name);
+
+/**
+ * @summary check if telemetry info has already been shown, if not show it
+ * @returns {Promise<boolean>} - true if successful
+ */
+export default async function telemetryCheck() {
+  const runOnce = config.get("runOnce");
+  if (runOnce) {
+    // we've already displayed telemetry message at startup, just keep moving
+    return true;
+  }
+  Logger.info("// The Open Commerce CLI collects anonymous statistics in order to");
+  Logger.info("// to improve the product. We do not collect any personally identifiable information");
+  Logger.info("// To opt out just do `reaction telemetry off` at the command prompt");
+  config.set("runOnce", true);
+  config.set("telemetry", true);
+  const userId = uuidv4();
+  console.log("setting userId to ", userId)
+  config.set("userId", userId);
+  return true;
+}
