@@ -8,7 +8,7 @@ import Logger from "../utils/logger.js";
  * @returns {Boolean} true for success
  */
 export default async function developApi(options) {
-  Logger.info({ options }, "Starting development on api");
+  Logger.info("starting development on api", { options });
   Logger.info("Starting Mongo docker image");
   const mongo = spawn("docker-compose", ["up", "-d"]);
   mongo.stdout.on("data", (data) => {

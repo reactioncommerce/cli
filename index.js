@@ -12,12 +12,25 @@ program
   });
 
 program
+  .command("logcheck").action(() => {
+    commands.logcheck();
+  });
+
+program
   .command("create-project")
   .addArgument(new commander.Argument("<type>", "which project type to create").choices(["api", "storefront", "admin"]))
   .argument("<name>", "what to name the project")
   .option("--populate")
   .action((type, name, options) => {
     commands.createProject(type, name, options);
+  });
+
+program
+  .command("create-plugin")
+  .addArgument(new commander.Argument("<type>", "which project type to create").choices(["api", "admin"]))
+  .argument("<name>", "what to name the plugin")
+  .action((type, name, options) => {
+    commands.createPlugin(type, name, options);
   });
 
 program
