@@ -6,6 +6,7 @@ A command line tool for creating, developing and deploying Open Commerce project
 
 ## Prerequisites
 
+* Node => 14.8
 * [Git](https://git-scm.com/)
 * [Docker](https://www.docker.com/)
 * [Docker Compose](https://docs.docker.com/compose/)
