@@ -5,21 +5,21 @@ import { sync as cmdExists } from "command-exists";
 
 /**
  * @summary get the version of Open Commerce
- * @returns {Object} versions objects with open commerce versions added
+ * @returns {String} versions objects with open commerce versions added
  */
 function getOcVersion() {
   // get Reaction version (if in a Reaction directory)
-  const ocVersions = {};
+  let reaction = null;
   try {
     const packageFile = fs.readJSONSync("./package.json");
 
     if (packageFile.description === "Reaction is a modern reactive, real-time event driven ecommerce platform.") {
-      ocVersions.reaction = packageFile.version;
+      reaction = packageFile.version;
     }
   } catch (error) {
-    ocVersions.reaction = null;
+    // swallow this;
   }
-  return ocVersions;
+  return reaction;
 }
 
 /**
