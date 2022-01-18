@@ -5,6 +5,7 @@ import createProject from "./create-project.js";
 import createPlugin from "./create-plugin.js";
 import develop from "./develop.js";
 import logcheck from "./logcheck.js";
+import telemetry from "./telemetry.js";
 
 export default {
   demo: () => {
@@ -19,5 +20,6 @@ export default {
   },
   develop,
   createPlugin,
-  logcheck
+  logcheck,
+  telemetry
 };

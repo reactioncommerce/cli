@@ -43,4 +43,12 @@ program
     commands.develop(type, options);
   });
 
+program
+  .command("telemetry")
+  .description("Toggle on or off reporting anonymous usage")
+  .addArgument(new commander.Argument("<flag>", "Whether telemetry is on or off").choices(["on", "off"]))
+  .action((flag) => {
+    commands.telemetry(flag);
+  });
+
 program.parse(process.argv);
