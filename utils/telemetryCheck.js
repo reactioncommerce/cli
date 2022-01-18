@@ -17,7 +17,7 @@ export default async function telemetryCheck() {
     return true;
   }
   Logger.info("// The Open Commerce CLI collects anonymous statistics in order to");
-  Logger.info("// to improve the product. We do not collect any personally identifiable information");
+  Logger.info("// improve the product. We do not collect any personally identifiable information");
   Logger.info("// To opt out just do `reaction telemetry off` at the command prompt");
   config.set("runOnce", true);
   config.set("telemetry", true);
