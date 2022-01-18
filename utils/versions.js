@@ -63,6 +63,6 @@ export default function getVersions() {
     versions.docker = dockerVer ? dockerVer.substring(0, dockerVer.indexOf(",")) : null;
   }
 
-  versions.mocVersion = getOcVersion(versions);
+  versions.ocVersion = getOcVersion(versions);
   return versions;
 }

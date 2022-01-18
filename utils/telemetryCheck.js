@@ -22,7 +22,6 @@ export default async function telemetryCheck() {
   config.set("runOnce", true);
   config.set("telemetry", true);
   const userId = uuidv4();
-  console.log("setting userId to ", userId)
   config.set("userId", userId);
   return true;
 }

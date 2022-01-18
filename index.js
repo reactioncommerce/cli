@@ -1,13 +1,11 @@
 #!/usr/bin/env node
 
-import * as commander from "commander/esm.mjs";
-import Configstore from "configstore";
-import commands from "./commands/index.js";
 import fs from "fs";
+import * as commander from "commander/esm.mjs";
+import commands from "./commands/index.js";
 
 const program = new commander.Command();
 const packageJson = JSON.parse(fs.readFileSync("./package.json", "utf8"));
-const config = new Configstore(packageJson.name);
 
 program
   .version(packageJson.version)

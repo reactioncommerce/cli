@@ -9,13 +9,13 @@ import logcheck from "./logcheck.js";
 export default {
   demo: () => {
     telemetryCheck();
-    track("demo", {}, {});
     demo();
+    track("demo", {}, {});
   },
   createProject: (projectType, projectName, options) => {
     telemetryCheck();
-    track(`create-project/${projectType}`, {}, options);
     createProject(projectType, projectName, options);
+    track(`create-project/${projectType}`, {}, options);
   },
   develop,
   createPlugin,
