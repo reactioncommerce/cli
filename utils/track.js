@@ -59,7 +59,7 @@ export default async function track(command, args, options, userData = {}) {
   userData.userId = userId;
   const client = ga4(userId);
   const customDimensions = setCustomDimensions(versions, countryCode);
-  const response = await client.pageview(command, customDimensions, false);
+  const response = await client.pageview(command, customDimensions, true);
   if (env.SHOW_VERBOSE_TELEMETRY_DATA) {
     Logger.success(command, { options, customDimensions, userId });
     Logger.success(JSON.stringify(response));
