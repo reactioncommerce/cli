@@ -33,7 +33,11 @@ export default async function demo(demoPath) {
   const portsAvailable = !portsResults.some((portResults) => portResults === true);
   if (!portsAvailable) {
     Logger.error("One of the ports (3000/4000/4080) required to run this project are already in use");
-    Logger.error("Cannot continue", portsMap);
+    portsMap.forEach((portMap) => {
+      if (portMap.inUse) {
+        Logger.error(`Port ${portMap.port} is not available and is required to run the demo`);
+      }
+    });
     return false;
   }
   await createDemoDirectory(demoPath);
@@ -60,6 +64,5 @@ export default async function demo(demoPath) {
   Logger.info("Admin panel on localhost:4080");
   Logger.info("Example Storefront on localhost:4000");
   Logger.info("Run cd <mydemo directory> and then docker-compose down to stop");
-  Logger.info("or use demo-destroy to completely remove a demo");
   return true;
 }

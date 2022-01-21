@@ -16,13 +16,6 @@ program
   });
 
 program
-  .command("demo-destroy")
-  .description("Completely shut down and remove volumes of a previously run demo")
-  .action(() => {
-    commands.demoDestroy();
-  });
-
-program
   .command("create-project")
   .description("Create a new Open Commerce project of one of the three types")
   .addArgument(new commander.Argument("<type>", "which project type to create").choices(["api", "storefront", "admin"]))
