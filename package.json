@@ -1,5 +1,5 @@
 {
-  "name": "open-commerce-cli",
+  "name": "reaction-cli",
   "version": "1.0.0",
   "description": "A command line client for creating and managing Open Commerce projects",
   "main": "index.js",
