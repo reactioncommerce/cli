@@ -18,7 +18,7 @@ Prerequisites
 
 ## Issue Description
 <!--
-Providing a clear description of the issue will enable a developer to quickly reproduce and understand the issue. Please provide a detailed description including images, animation and/or videos. For client issues, include browser console errors, for server issues please add terminal output and stack traces.
+Providing a clear description of the issue will enable a developer to quickly reproduce and understand the issue. Please provide a detailed description including images, animation and/or videos. Please add terminal output and stack traces.
 -->
 
 ## Steps to Reproduce
