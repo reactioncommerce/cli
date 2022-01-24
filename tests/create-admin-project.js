@@ -17,6 +17,6 @@ describe("The create-project-admin command", () => {
     );
     const responseLines = response.trim().split(EOL);
     // eslint-disable-next-line jest/valid-expect
-    expect(responseLines[0]).to.equal("cli: {\"projectName\":\"myadmin\",\"options\":{}}: Creating admin");
+    expect(responseLines[0]).to.equal("reaction-cli: Creating admin: {\"projectName\":\"myadmin\",\"options\":{}})");
   }).timeout(350000); // cloning the admin takes a long time
 });
