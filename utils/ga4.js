@@ -1,19 +1,20 @@
 import fetch from "node-fetch";
+import env from "../config.js";
+import Logger from "./logger.js";
 
 const endpoint = "https://api.merchstack-demo.com/"; // THIS IS FAKE, this will be replaced by a Lambda endpoint
 
 /**
  * @summary send usage information to GA in GA4 format
  * @param {String} clientId - the client id to use
- * @returns {Promise<{Object}|null>} - Return the response in debug mode, null in production
+ * @returns {Promise<{Object}>} - Return the client object
  */
 export default function ga4(clientId) {
-  const CLIENT_ID = clientId;
   const client = {
     pageview: async (page, customDimensions, debug = true) => {
       const body = {
         // eslint-disable-next-line camelcase
-        client_id: CLIENT_ID,
+        client_id: clientId,
         events: [{
           name: "pageview",
           params: {
@@ -39,6 +40,9 @@ export default function ga4(clientId) {
         } catch (error) {
           // swallow this silently
           // TODO: Add SENTRY reporting or something
+          if (env.SHOW_VERBOSE_TELEMETRY_DATA) {
+            Logger.error("Could not send telemetry data");
+          }
         }
       }
       return null;

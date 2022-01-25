@@ -33,8 +33,9 @@ export default {
     track(`create-plugin/${type}`, {}, options);
   },
   telemetry: (args) => {
+    telemetryCheck();
     checkForNewVersion();
     telemetry(args);
-    track(`telemetry/${args}`, {});
+    track(`telemetry/${args}`, {}, {});
   }
 };

@@ -6,9 +6,9 @@ const packageJson = JSON.parse(fs.readFileSync("./package.json", "utf8"));
 const config = new Configstore(packageJson.name);
 
 /**
- * @summary allow use to turn off telemetry
+ * @summary allow user to turn off/on telemetry
  * @param {String} args - Either "on" or "off"
- * @returns {boolean} - return if successful
+ * @returns {boolean} - return true if successful
  */
 export default function telemetry(args) {
   if (args === "off") {
