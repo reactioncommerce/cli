@@ -8,10 +8,10 @@ import develop from "./develop.js";
 import telemetry from "./telemetry.js";
 
 export default {
-  demo: () => {
+  demo: (demoPath) => {
     telemetryCheck();
     checkForNewVersion();
-    demo();
+    demo(demoPath);
     track("demo", {}, {});
   },
   createProject: (projectType, projectName, options) => {
