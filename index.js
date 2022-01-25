@@ -7,19 +7,19 @@ import commands from "./commands/index.js";
 const program = new commander.Command();
 const packageJson = JSON.parse(fs.readFileSync("./package.json", "utf8"));
 
-program
-  .version(packageJson.version)
-  .command("demo").action(() => {
-    commands.demo();
-  });
+program.version(packageJson.version);
 
 program
-  .command("logcheck").action(() => {
-    commands.logcheck();
+  .command("demo")
+  .description("Run Open Commerce locally in non-dev mode using docker-compose")
+  .argument("<path>", "Where to copy the demo files")
+  .action((path) => {
+    commands.demo(path);
   });
 
 program
   .command("create-project")
+  .description("Create a new Open Commerce project of one of the three types")
   .addArgument(new commander.Argument("<type>", "which project type to create").choices(["api", "storefront", "admin"]))
   .argument("<name>", "what to name the project")
   .option("--populate")
@@ -29,6 +29,7 @@ program
 
 program
   .command("create-plugin")
+  .description("Create a new plugin based on the template for an API project")
   .addArgument(new commander.Argument("<type>", "which project type to create").choices(["api", "admin"]))
   .argument("<name>", "what to name the plugin")
   .action((type, name, options) => {
@@ -37,6 +38,7 @@ program
 
 program
   .command("develop")
+  .description("Run a project in locally in development mode")
   .addArgument(new commander.Argument("[type]", "which project type to develop on").choices(["api", "storefront", "admin"]).default("api"))
   .option("--debug")
   .action((type, options) => {
