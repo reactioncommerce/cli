@@ -3,7 +3,7 @@ import diehard from "diehard";
 import Logger from "../utils/logger.js";
 
 /**
- * @summary clones projects locally from repo
+ * @summary run project in development mode
  * @param {Object} options - Any options for project creation
  * @returns {Boolean} true for success
  */
