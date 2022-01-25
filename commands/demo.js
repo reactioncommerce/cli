@@ -29,17 +29,15 @@ export default async function demo(demoPath) {
     Logger.error(`Cannot create directory ${demoPath}, already exists`);
     return false;
   }
-  const { portsResults, portsMap } = await portCheck();
-  const portsAvailable = !portsResults.some((portResults) => portResults === true);
-  if (!portsAvailable) {
-    Logger.error("One of the ports (3000/4000/4080) required to run this project are already in use");
-    portsMap.forEach((portMap) => {
-      if (portMap.inUse) {
-        Logger.error(`Port ${portMap.port} is not available and is required to run the demo`);
-      }
-    });
-    return false;
-  }
+  const { portsMap } = await portCheck();
+  let portsAvailable = true;
+  portsMap.forEach((portMap) => {
+    if (portMap.inUse) {
+      Logger.error(`Port ${portMap.port} is not available and is required to run the demo`);
+      portsAvailable = false;
+    }
+  });
+  if (!portsAvailable) return false;
   await createDemoDirectory(demoPath);
   await copy("./templates/demo/", demoPath);
   const options = {
