@@ -47,11 +47,10 @@ A simple example plugin is already installed when you created the project, but s
 Your plugin directory is configured to publish to npm so you can run by default. You can publish your plugin (assuming you have an established npm account)
 with `cli publish`. Note that the use the published package you will need to edit your plugins.json to point at the package rather than the local version.
 
-### To build a Dockerfile for Deployment
+### Telemetry
 
-Included in your project is a Dockerfile that will combine core Reaction with your custom plugins. To build this docker image
-simply run `cli docker build`.
-
+This project sends back anonymous data to our analytics provider so we can see understand how we can understand how users are using the product.
+If you want to see what data is being sent you can set the environment variable: `SHOW_VERBOSE_TELEMETRY_DATA` to `true`
 ##**Future**
 
 ### To deploy your project to one of the supported cloud hosting just type:

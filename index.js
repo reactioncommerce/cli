@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
+import fs from "fs";
 import * as commander from "commander/esm.mjs";
 import commands from "./commands/index.js";
 
 const program = new commander.Command();
+const packageJson = JSON.parse(fs.readFileSync("./package.json", "utf8"));
 
-program.version("1.0.0");
+program.version(packageJson.version);
 
 program
   .command("demo")
@@ -44,11 +46,11 @@ program
   });
 
 program
-  .command("build")
-  .addArgument(new commander.Argument("[type]", "which project type to develop on").choices(["api", "storefront", "admin"]).default("api"))
-  .option("--debug")
-  .action((type, options) => {
-    commands.build(type, options);
+  .command("telemetry")
+  .description("Toggle on or off reporting anonymous usage")
+  .addArgument(new commander.Argument("<flag>", "Whether telemetry is on or off").choices(["on", "off"]))
+  .action((flag) => {
+    commands.telemetry(flag);
   });
 
 program.parse(process.argv);

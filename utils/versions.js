@@ -5,25 +5,21 @@ import { sync as cmdExists } from "command-exists";
 
 /**
  * @summary get the version of Open Commerce
- * @param {Object} versions - versions object
- * @returns {Object} versions objects with open commerce versions added
+ * @returns {String} versions objects with open commerce versions added
  */
-function getMocVersion(versions) {
+function getOcVersion() {
   // get Reaction version (if in a Reaction directory)
+  let reaction = null;
   try {
     const packageFile = fs.readJSONSync("./package.json");
 
-    if (packageFile.name === "reaction") {
-      versions.reaction = packageFile.version;
-
-      // get Reaction git branch name
-      const reactionBranch = exec("git rev-parse --abbrev-ref HEAD").toString().replace(/\r?\n|\r/g, "");
-      versions.reactionBranch = reactionBranch.indexOf("fatal") === -1 ? reactionBranch : null;
+    if (packageFile.description === "Reaction is a modern reactive, real-time event driven ecommerce platform.") {
+      reaction = packageFile.version;
     }
   } catch (error) {
-    versions.reaction = null;
+    // swallow this;
   }
-  return versions;
+  return reaction;
 }
 
 /**
@@ -67,6 +63,6 @@ export default function getVersions() {
     versions.docker = dockerVer ? dockerVer.substring(0, dockerVer.indexOf(",")) : null;
   }
 
-  versions.mocVersion = getMocVersion(versions);
+  versions.ocVersion = getOcVersion(versions);
   return versions;
 }
