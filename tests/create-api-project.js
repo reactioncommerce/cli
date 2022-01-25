@@ -28,7 +28,6 @@ describe("The create-project-api command", () => {
     );
     const responseLines = response.trim().split(EOL);
     // eslint-disable-next-line jest/valid-expect
-    expect(responseLines[0]).to.equal("cli: {\"projectName\":\"myshop\",\"options\":{}}: Creating API project");
-    expect(responseLines[1]).to.equal("cli: \"Project creation complete. Change to your directory and run `npm install`\": undefined");
+    expect(responseLines[1]).to.equal("reaction-cli: Project creation complete. Change to your directory and run `npm install`");
   }).timeout(5000);
 });
