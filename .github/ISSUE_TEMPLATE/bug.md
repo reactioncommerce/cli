@@ -7,13 +7,10 @@ labels: 'bug, needs triage'
 <!--
 Issue tracker is **ONLY** used for reporting bugs. NO NEW FEATURE REQUESTS ACCEPTED.
 
-Are you looking for help with getting started on Reaction? Please visit our [Reaction documentation](https://docs.reactioncommerce.com/reaction-docs/trunk/getting-started-developing-with-reaction).
-
-
 Prerequisites
 * [ ] Are you running the latest version?
 * [ ] Are you able to consistently reproduce the issue?
-* [ ] Did you search the issue queue for existing issue? [Search issues](https://github.com/reactioncommerce/reaction/issues)
+* [ ] Did you search the issue queue for existing issue?
 -->
 
 ## Issue Description
