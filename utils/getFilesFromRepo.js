@@ -3,6 +3,7 @@ import path from "path";
 import os from "os";
 import simpleGit from "simple-git";
 import { copy } from "fs-extra";
+import rimraf from "rimraf";
 import Logger from "./logger.js";
 
 const cliRepo = "git@github.com:reactioncommerce/cli.git";
@@ -28,4 +29,5 @@ export default async function getFilesFromRepo(sourcePath, destinationPath) {
     Logger.error(error);
   }
   await copy(`${tmpDir}${sourcePath}`, destinationPath);
+  await rimraf.sync(tmpDir);
 }
