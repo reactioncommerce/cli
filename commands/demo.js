@@ -1,11 +1,11 @@
 import path from "path";
 import { mkdir } from "fs/promises";
 import { spawn } from "child_process";
-import { copy } from "fs-extra";
 import diehard from "diehard";
 import Logger from "../utils/logger.js";
 import portCheck from "../utils/portCheck.js";
 import pathExists from "../utils/pathExists.js";
+import getFilesFromRepo from "../utils/getFilesFromRepo.js";
 
 /**
  * @summary create project directory
@@ -39,7 +39,7 @@ export default async function demo(demoPath) {
   });
   if (!portsAvailable) return false;
   await createDemoDirectory(demoPath);
-  await copy("./templates/demo/", demoPath);
+  await getFilesFromRepo("/templates/demo/", demoPath);
   const options = {
     cwd: path.join(process.cwd(), demoPath)
   };

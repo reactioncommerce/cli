@@ -1,10 +1,11 @@
-import fs from "fs";
 import { v4 as uuidv4 } from "uuid";
 import Configstore from "configstore";
 import Logger from "./logger.js";
+import constants from "./constants.js";
 
-const packageJson = JSON.parse(fs.readFileSync("./package.json", "utf8"));
-const config = new Configstore(packageJson.name);
+const { PACKAGE_NAME } = constants;
+
+const config = new Configstore(PACKAGE_NAME);
 
 /**
  * @summary check if telemetry info has already been shown, if not show it

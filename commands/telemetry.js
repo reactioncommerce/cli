@@ -1,9 +1,9 @@
-import fs from "fs";
 import Configstore from "configstore";
 import Logger from "../utils/logger.js";
+import constants from "../utils/constants.js";
 
-const packageJson = JSON.parse(fs.readFileSync("./package.json", "utf8"));
-const config = new Configstore(packageJson.name);
+const { PACKAGE_NAME } = constants;
+const config = new Configstore(PACKAGE_NAME);
 
 /**
  * @summary allow user to turn off/on telemetry

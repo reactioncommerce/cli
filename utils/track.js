@@ -1,13 +1,13 @@
-import fs from "fs";
 import Configstore from "configstore";
 import ga4 from "../utils/ga4.js";
 import env from "../config.js";
+import constants from "../utils/constants.js";
 import Logger from "./logger.js";
 import getVersions from "./versions.js";
 import getLocation from "./getLocation.js";
 
-const packageJson = JSON.parse(fs.readFileSync("./package.json", "utf8"));
-const config = new Configstore(packageJson.name);
+const { PACKAGE_NAME } = constants;
+const config = new Configstore(PACKAGE_NAME);
 
 
 /**

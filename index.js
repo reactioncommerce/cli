@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 
-import fs from "fs";
 import * as commander from "commander/esm.mjs";
 import commands from "./commands/index.js";
+import constants from "./utils/constants.js";
 
+
+const { PACKAGE_VERSION } = constants;
 const program = new commander.Command();
-const packageJson = JSON.parse(fs.readFileSync("./package.json", "utf8"));
 
-program.version(packageJson.version);
+
+program.version(PACKAGE_VERSION);
 
 program
   .command("demo")
