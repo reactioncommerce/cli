@@ -1,12 +1,10 @@
 import updateNotifier from "update-notifier";
 
-import constants from "../utils/constants.js";
+import pkg from "../package.json";
 
-const { PACKAGE_NAME, PACKAGE_VERSION } = constants;
-
-const pkg = {
-  name: PACKAGE_NAME,
-  version: PACKAGE_VERSION
+const notifierPackage = {
+  name: pkg.name,
+  version: pkg.version,
 };
 
 /**
@@ -14,6 +12,6 @@ const pkg = {
  * @returns {Promise<void>} undefined
  */
 export default async function checkForNewVersion() {
-  const notifier = updateNotifier({ pkg });
+  const notifier = updateNotifier({ pkg: notifierPackage });
   notifier.notify();
 }

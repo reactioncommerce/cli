@@ -1,14 +1,12 @@
 import Configstore from "configstore";
 import ga4 from "../utils/ga4.js";
 import env from "../config.js";
-import constants from "../utils/constants.js";
+import pkg from "../package.json";
 import Logger from "./logger.js";
 import getVersions from "./versions.js";
 import getLocation from "./getLocation.js";
 
-const { PACKAGE_NAME } = constants;
-const config = new Configstore(PACKAGE_NAME);
-
+const config = new Configstore(pkg.name);
 
 /**
  * @summary turn version information into custom dimensions for GA
@@ -23,14 +21,13 @@ function setCustomDimensions(versions, countryCode) {
     cd3: versions.node,
     cd4: versions.npm,
     cd5: versions.docker,
-    cd7: countryCode
+    cd7: countryCode,
   };
   if (versions.ocVersion !== null) {
     customDimensions.cd6 = versions.ocVersion;
   }
   return customDimensions;
 }
-
 
 /**
  * @summary send anonymous usage information to GA

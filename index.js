@@ -1,15 +1,12 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --experimental-json-modules --no-warnings
 
 import * as commander from "commander/esm.mjs";
 import commands from "./commands/index.js";
-import constants from "./utils/constants.js";
+import pkg from "./package.json";
 
-
-const { PACKAGE_VERSION } = constants;
 const program = new commander.Command();
 
-
-program.version(PACKAGE_VERSION);
+program.version(pkg.version);
 
 program
   .command("demo")
@@ -41,7 +38,11 @@ program
 program
   .command("develop")
   .description("Run a project in locally in development mode")
-  .addArgument(new commander.Argument("[type]", "which project type to develop on").choices(["api", "storefront", "admin"]).default("api"))
+  .addArgument(
+    new commander.Argument("[type]", "which project type to develop on")
+      .choices(["api", "storefront", "admin"])
+      .default("api")
+  )
   .option("--debug")
   .action((type, options) => {
     commands.develop(type, options);

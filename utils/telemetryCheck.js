@@ -1,11 +1,9 @@
 import { v4 as uuidv4 } from "uuid";
 import Configstore from "configstore";
 import Logger from "./logger.js";
-import constants from "./constants.js";
+import pkg from "../package.json";
 
-const { PACKAGE_NAME } = constants;
-
-const config = new Configstore(PACKAGE_NAME);
+const config = new Configstore(pkg.name);
 
 /**
  * @summary check if telemetry info has already been shown, if not show it

@@ -1,9 +1,8 @@
 import Configstore from "configstore";
 import Logger from "../utils/logger.js";
-import constants from "../utils/constants.js";
+import pkg from "../package.json";
 
-const { PACKAGE_NAME } = constants;
-const config = new Configstore(PACKAGE_NAME);
+const config = new Configstore(pkg.name);
 
 /**
  * @summary allow user to turn off/on telemetry
