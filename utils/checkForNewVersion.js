@@ -1,10 +1,11 @@
 import updateNotifier from "update-notifier";
 
-import pkg from "../package.json";
+import { version } from "./version.js";
+import PACKAGE_NAME from "./constants.js";
 
 const notifierPackage = {
-  name: pkg.name,
-  version: pkg.version,
+  name: PACKAGE_NAME,
+  version
 };
 
 /**
