@@ -5,7 +5,6 @@ name: Build, Test and Publish NPM Package
 
 on:
   push:
-    branches: [$default-branch]
   pull_request:
     branches: [$default-branch]
 
