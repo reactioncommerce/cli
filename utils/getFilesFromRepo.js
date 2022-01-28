@@ -4,12 +4,14 @@ import os from "os";
 import simpleGit from "simple-git";
 import { copy } from "fs-extra";
 import rimraf from "rimraf";
+import pkg from "../package.json";
 import Logger from "./logger.js";
 
-const cliRepo = "git@github.com:reactioncommerce/cli.git";
+
+const { repository: { url: cliRepo } } = pkg;
 
 /**
- * @summary clone repo to temp directory and then copy
+ * @summary Make local copies of files from remote git repository
  * @param {String} sourcePath - Where to get the files from the local clone
  * @param {String} destinationPath - Where to put the copied files
  * @returns {Promise<Boolean>} - true if successful

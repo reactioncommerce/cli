@@ -12,6 +12,10 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:reactioncommerce/cli.git"
+  },
   "author": "hello-open-commerce@mailchimp.com",
   "license": "Apache-2.0",
   "dependencies": {
