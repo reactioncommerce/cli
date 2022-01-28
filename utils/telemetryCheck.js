@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import Configstore from "configstore";
-import Logger from "./logger.js";
 import pkg from "../package.json";
+import Logger from "./logger.js";
 
 const config = new Configstore(pkg.name);
 

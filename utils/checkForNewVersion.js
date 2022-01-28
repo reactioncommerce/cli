@@ -4,7 +4,7 @@ import pkg from "../package.json";
 
 const notifierPackage = {
   name: pkg.name,
-  version: pkg.version,
+  version: pkg.version
 };
 
 /**

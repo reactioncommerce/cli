@@ -21,7 +21,7 @@ function setCustomDimensions(versions, countryCode) {
     cd3: versions.node,
     cd4: versions.npm,
     cd5: versions.docker,
-    cd7: countryCode,
+    cd7: countryCode
   };
   if (versions.ocVersion !== null) {
     customDimensions.cd6 = versions.ocVersion;
