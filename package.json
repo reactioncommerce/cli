@@ -8,7 +8,7 @@
   },
   "type": "module",
   "scripts": {
-    "test": "mocha ./tests/*.* --full-trace",
+    "test": "node --experimental-json-modules --no-warnings node_modules/mocha/bin/_mocha ./tests/*.* --full-trace",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
