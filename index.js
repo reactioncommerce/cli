@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env -S node --experimental-json-modules --no-warnings
 import * as commander from "commander/esm.mjs";
 import commands from "./commands/index.js";
 import pkg from "./package.json";
