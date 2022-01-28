@@ -1,8 +1,5 @@
-import Configstore from "configstore";
 import Logger from "../utils/logger.js";
-import pkg from "../package.json";
-
-const config = new Configstore(pkg.name);
+import getConfig from "../utils/getConfig.js";
 
 /**
  * @summary allow user to turn off/on telemetry
@@ -10,6 +7,7 @@ const config = new Configstore(pkg.name);
  * @returns {boolean} - return true if successful
  */
 export default function telemetry(args) {
+  const config = getConfig();
   if (args === "off") {
     config.set("telemetry", false);
     Logger.success("Telemetry turned off");

@@ -1,12 +1,10 @@
-import Configstore from "configstore";
 import ga4 from "../utils/ga4.js";
 import env from "../config.js";
-import pkg from "../package.json";
 import Logger from "./logger.js";
 import getVersions from "./versions.js";
 import getLocation from "./getLocation.js";
+import getConfig from "./getConfig.js";
 
-const config = new Configstore(pkg.name);
 
 /**
  * @summary turn version information into custom dimensions for GA
@@ -38,6 +36,7 @@ function setCustomDimensions(versions, countryCode) {
  * @returns {Promise<void>} undefined
  */
 export default async function track(command, args, options, userData = {}) {
+  const config = getConfig();
   const versions = getVersions();
   let countryCode;
   // Let's not use the user's bandwidth to get the location every time
