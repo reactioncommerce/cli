@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "fs/promises";
-import { copy } from "fs-extra";
 import simpleGit from "simple-git";
 import wget from "../utils/wget.js";
+import getFilesFromRepo from "../utils/getFilesFromRepo.js";
 import pathExists from "../utils/pathExists.js";
 import Logger from "../utils/logger.js";
 
@@ -126,8 +126,7 @@ export default async function createProjectApi(projectName, options) {
   // create directories
   await makeProject(projectName);
 
-  // copy files from local template (this may also eventually come from core, so it's all in one place)
-  await copy("./templates/api-project/", projectName);
+  await getFilesFromRepo("/templates/api-project/", projectName);
 
   // copy files directly from core that we want to be current
   await getFilesFromCore(projectName);

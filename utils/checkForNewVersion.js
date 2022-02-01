@@ -1,7 +1,7 @@
-import fs from "fs";
 import updateNotifier from "update-notifier";
 
-const pkg = JSON.parse(fs.readFileSync("./package.json", "utf8"));
+import pkg from "../package.json";
+
 
 /**
  * @summary Check if new version is available and notify user if so

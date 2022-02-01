@@ -1,13 +1,9 @@
-import fs from "fs";
-import Configstore from "configstore";
 import ga4 from "../utils/ga4.js";
 import env from "../config.js";
 import Logger from "./logger.js";
 import getVersions from "./versions.js";
 import getLocation from "./getLocation.js";
-
-const packageJson = JSON.parse(fs.readFileSync("./package.json", "utf8"));
-const config = new Configstore(packageJson.name);
+import getConfig from "./getConfig.js";
 
 
 /**
@@ -31,7 +27,6 @@ function setCustomDimensions(versions, countryCode) {
   return customDimensions;
 }
 
-
 /**
  * @summary send anonymous usage information to GA
  * @param {String} command - The command executed
@@ -41,6 +36,7 @@ function setCustomDimensions(versions, countryCode) {
  * @returns {Promise<void>} undefined
  */
 export default async function track(command, args, options, userData = {}) {
+  const config = getConfig();
   const versions = getVersions();
   let countryCode;
   // Let's not use the user's bandwidth to get the location every time

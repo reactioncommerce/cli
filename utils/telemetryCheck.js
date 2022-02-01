@@ -1,16 +1,13 @@
-import fs from "fs";
 import { v4 as uuidv4 } from "uuid";
-import Configstore from "configstore";
 import Logger from "./logger.js";
-
-const packageJson = JSON.parse(fs.readFileSync("./package.json", "utf8"));
-const config = new Configstore(packageJson.name);
+import getConfig from "./getConfig.js";
 
 /**
  * @summary check if telemetry info has already been shown, if not show it
  * @returns {Promise<boolean>} - true if successful
  */
 export default async function telemetryCheck() {
+  const config = getConfig();
   const runOnce = config.get("runOnce");
   if (runOnce) {
     // we've already displayed telemetry message at startup, just keep moving

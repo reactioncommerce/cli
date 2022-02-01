@@ -8,8 +8,13 @@
   },
   "type": "module",
   "scripts": {
-    "test": "mocha ./tests/*.* --full-trace",
-    "lint": "eslint ."
+    "test": "node --experimental-json-modules --no-warnings node_modules/mocha/bin/_mocha ./tests/*.* --full-trace",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:reactioncommerce/cli.git"
   },
   "author": "hello-open-commerce@mailchimp.com",
   "license": "Apache-2.0",

@@ -1,16 +1,15 @@
 # This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Build and Publish NPM Package
+name: Build, Test and Publish NPM Package
 
 on:
   push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
+    branches: [$default-branch]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     strategy:
@@ -19,17 +18,19 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run lint
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run test
 
   publish-npm:
-    needs: build
+    needs: test
+    if: github.ref == 'refs/heads/trunk'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

@@ -1,7 +1,6 @@
 import concat from "concat-stream";
 import createProcess from "./createProcess.js";
 
-
 /**
  * @summary execute a child process for testing
  * @param {String} processPath - The path to the process
