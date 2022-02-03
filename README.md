@@ -47,6 +47,6 @@ Open Commerce includes an Admin panel for managing your system plus an example s
 
 ### Telemetry
 
-This project sends back anonymous data to our analytics provider so we can see understand how we can understand how users are using the product.
+This project sends back anonymous data to our analytics provider so we can understand how users are using the product.
 If you want to see what data is being sent you can set the environment variable: `SHOW_VERBOSE_TELEMETRY_DATA` to `true`
 
