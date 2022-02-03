@@ -17,7 +17,7 @@
 ## Step Two - Create your project(s)
 
 2. Create your Open Commerce project by running `reaction create-project api my-server`. This will create an open commerce project in the directory `my-server`. You can name it whatever you want.
-3. Once this is complete do `cd my-server` and then run `npm install` and then `reaction api develop`. This will start the Open Commerce GraphQL server and Mongo Server. Press Ctrl+C to stop
+3. Once this is complete do `cd my-server` and then run `npm install` and then `reaction develop api`. This will start the Open Commerce GraphQL server and Mongo Server. Press Ctrl+C to stop
 4. A sample custom plugin has been installed, and you should see its output in the logs. (Your Sample Plugin)
 5. To add a new plugin based on our plugin template run `reaction create-plugin api <my-plugin-name>`. This plugin will now be loaded the next time you start Open Commerce.
 
