@@ -1,4 +1,5 @@
 import path from "path";
+import fs from "fs";
 import rimraf from "rimraf";
 import simpleGit from "simple-git";
 import pathExists from "../utils/pathExists.js";
@@ -54,6 +55,22 @@ async function gitInitDirectory(pluginName) {
   }
 }
 
+/**
+ * @summary add the newly created plugin to plugins.json, so it will load
+ * @param {String} pluginName - The name of the created plugin
+ * @returns {Promise<Object>} - The updated plugins.json data
+ */
+async function addToPluginsJson(pluginName) {
+  Logger.info("Updated plugins.json");
+  const pluginJson = fs.readFileSync("plugins.json", { encoding: "utf8", flag: "r" });
+  const pluginData = JSON.parse(pluginJson);
+  const pluginLine = `./custom-packages/${pluginName}/index.js`;
+  pluginData[pluginName] = pluginLine;
+  const updatedPluginsJson = JSON.stringify(pluginData, null, 4);
+  fs.writeFileSync("plugins.json", updatedPluginsJson, { encoding: "utf8" });
+  return pluginData;
+}
+
 
 /**
  * @summary clones projects locally from repo
@@ -62,7 +79,7 @@ async function gitInitDirectory(pluginName) {
  * @returns {Boolean} true for success
  */
 export default async function createPluginApi(pluginName, options) {
-  Logger.info({ pluginName, options }, "Creating API plugin");
+  Logger.info("Creating API plugin", { pluginName, options });
   const pluginPath = path.join("custom-packages", pluginName);
   if (await pathExists(pluginPath)) {
     Logger.error(`Cannot create directory ${pluginName}, already exists`);
@@ -72,5 +89,6 @@ export default async function createPluginApi(pluginName, options) {
   await cloneFromExample(pluginPath);
   await removeGitDirectory(pluginPath);
   await gitInitDirectory(pluginPath);
-  Logger.info("Plugin creation complete`");
+  await addToPluginsJson(pluginName);
+  Logger.info("Plugin creation complete");
 }
