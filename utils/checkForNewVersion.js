@@ -1,6 +1,7 @@
 import updateNotifier from "update-notifier";
+import getPackageData from "../utils/getPackageData.js";
 
-import pkg from "../package.json";
+const pkg = getPackageData();
 
 
 /**

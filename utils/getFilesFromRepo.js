@@ -4,11 +4,9 @@ import os from "os";
 import simpleGit from "simple-git";
 import { copy } from "fs-extra";
 import rimraf from "rimraf";
-import pkg from "../package.json";
+import getPackageData from "../utils/getPackageData.js";
 import Logger from "./logger.js";
 
-
-const { repository: { url: cliRepo } } = pkg;
 
 /**
  * @summary Make local copies of files from remote git repository
@@ -17,6 +15,8 @@ const { repository: { url: cliRepo } } = pkg;
  * @returns {Promise<Boolean>} - true if successful
  */
 export default async function getFilesFromRepo(sourcePath, destinationPath) {
+  const pkg = getPackageData();
+  const { repository: { url: cliRepo } } = pkg;
   const appPrefix = "reaction-cli";
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), appPrefix));
   const gitOptions = {

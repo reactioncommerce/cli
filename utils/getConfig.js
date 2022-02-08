@@ -1,6 +1,7 @@
 import Configstore from "configstore";
-import pkg from "../package.json";
+import getPackageData from "../utils/getPackageData.js";
 
+const pkg = getPackageData();
 const config = new Configstore(pkg.name);
 
 /**
