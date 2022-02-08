@@ -8,7 +8,7 @@
   },
   "type": "module",
   "scripts": {
-    "test": "mocha ./tests/*.* --full-trace",
+    "test": "node --experimental-json-modules --no-warnings node_modules/mocha/bin/_mocha ./tests/*.* --full-trace",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
@@ -28,6 +28,7 @@
     "diehard": "^1.5.2",
     "envalid": "^7.2.2",
     "fs-extra": "^10.0.0",
+    "is-ci": "^3.0.1",
     "jest": "^27.4.7",
     "meant": "^2.0.1",
     "node-fetch": "^3.1.1",

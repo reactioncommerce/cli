@@ -10,12 +10,15 @@ import { spawn } from "child_process";
 export default function createProcess(processPath, args = [], env = null) {
   const funcArgs = [processPath].concat(args);
 
-  return spawn("node", funcArgs, {
+  return spawn("node", ["--experimental-json-modules", "--no-warnings", ...funcArgs], {
     env: Object.assign(
       {
+        ...process.env,
         NODE_ENV: "test"
       },
       env
     )
-  }).on("error", (error) => { throw error; });
+  }).on("error", (error) => {
+    throw error;
+  });
 }
