@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { EOL } from "os";
 import { v4 as uuidv4 } from "uuid";
 import rimraf from "rimraf";
@@ -27,9 +26,7 @@ describe("The create-project-api command", () => {
     const response = await execute("./index.js", ["create-project", "api", "myshop"]);
     const responseLines = response.trim().split(EOL);
     // eslint-disable-next-line jest/valid-expect
-    expect(responseLines[1]).to.equal(
-      "reaction-cli: Project creation complete. Change to your directory and run `npm install`"
-    );
+    expect(responseLines[1]).to.equal("reaction-cli: Project creation complete. Change to your directory and run `npm install`");
   }).timeout(5000);
 });
 
