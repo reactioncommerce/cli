@@ -1,8 +1,9 @@
 import fetch from "node-fetch";
 import env from "../config.js";
 import Logger from "./logger.js";
+import constants from "./constants.js";
 
-const endpoint = "https://api.merchstack-demo.com/"; // THIS IS FAKE, this will be replaced by a Lambda endpoint
+const GA_ENDPOINT = "https://www.google-analytics.com/collect";
 
 /**
  * @summary send usage information to GA in GA4 format
@@ -12,25 +13,27 @@ const endpoint = "https://api.merchstack-demo.com/"; // THIS IS FAKE, this will 
 export default function ga4(clientId) {
   const client = {
     pageview: async (page, customDimensions, debug = true) => {
-      const body = {
-        // eslint-disable-next-line camelcase
-        client_id: clientId,
-        events: [{
-          name: "pageview",
-          params: {
-            dp: page
-          }
-        }]
-      };
-      // append all custom dimensions to parameters
-      const dimKeys = Object.keys(customDimensions);
-      for (const dimension of dimKeys) {
-        body.events[0].params[dimension] = customDimensions[dimension];
+      /* Parameters reference
+       * v - version, must be 1
+       * t - event type, we are using pageview
+       * aip - anonymize IP
+       * ua - user agent, We MUST have the ua param, otherwise the request will fail silently
+       * tid - our GA tracking ID
+       * cid - client ID
+       * dp - the name of the current page
+       * cd* - customDimensions
+       */
+      let params = `v=1&t=pageview&aip=1&ua=Terminal&tid=${constants.GA_TRACKING_ID}&cid=${clientId}&dp=${page}`;
+      // append all custom dimensions to query parameters
+      for (const [key, value] of Object.entries(customDimensions)) {
+        params = `${params}&${key}=${value}`;
       }
-      const response = await fetch(endpoint, {
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
+      const response = await fetch(GA_ENDPOINT, {
+        headers: {
+          "content-type": "text/plain"
+        },
+        method: "POST",
+        body: params
       });
       // in production mode the call produces no response
       if (debug) {
