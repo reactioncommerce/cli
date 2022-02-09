@@ -1,7 +1,9 @@
+import { createRequire } from "module";
 import updateNotifier from "update-notifier";
-import getPackageData from "../utils/getPackageData.js";
 
-const pkg = getPackageData();
+
+const require = createRequire(import.meta.url);
+const pkg = require("../package.json");
 
 
 /**

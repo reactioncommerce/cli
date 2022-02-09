@@ -1,9 +1,13 @@
 #!/usr/bin/env -S node --experimental-json-modules --no-warnings
+import { createRequire } from "module";
 import * as commander from "commander/esm.mjs";
 import commands from "./commands/index.js";
-import getPackageData from "./utils/getPackageData.js";
 
-const pkg = getPackageData();
+
+const require = createRequire(import.meta.url);
+const pkg = require("./package.json");
+
+
 const program = new commander.Command();
 
 program.version(pkg.version);

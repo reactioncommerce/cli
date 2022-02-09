@@ -1,11 +1,15 @@
 import fs from "fs";
 import path from "path";
 import os from "os";
+import { createRequire } from "module";
 import simpleGit from "simple-git";
 import { copy } from "fs-extra";
 import rimraf from "rimraf";
-import getPackageData from "../utils/getPackageData.js";
 import Logger from "./logger.js";
+
+
+const require = createRequire(import.meta.url);
+const pkg = require("../package.json");
 
 
 /**
@@ -15,7 +19,6 @@ import Logger from "./logger.js";
  * @returns {Promise<Boolean>} - true if successful
  */
 export default async function getFilesFromRepo(sourcePath, destinationPath) {
-  const pkg = getPackageData();
   const { repository: { url: cliRepo } } = pkg;
   const appPrefix = "reaction-cli";
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), appPrefix));
