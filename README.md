@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-* Node 14.8 or greater
+* Node 14.18.1 or greater
 * [Git](https://git-scm.com/)
 * [Docker](https://www.docker.com/)
 * [Docker Compose](https://docs.docker.com/compose/) (to run demo mode)
