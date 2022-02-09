@@ -7,7 +7,7 @@
 * Node 14.18.1 or greater
 * [Git](https://git-scm.com/)
 * [Docker](https://www.docker.com/)
-* [Docker Compose](https://docs.docker.com/compose/) (to run demo mode)
+* [Docker Compose](https://docs.docker.com/compose/)
 
 
 ## Step One - Install the command line tool
