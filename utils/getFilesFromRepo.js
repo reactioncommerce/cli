@@ -5,12 +5,13 @@ import { createRequire } from "module";
 import simpleGit from "simple-git";
 import { copy } from "fs-extra";
 import rimraf from "rimraf";
+import isCI from "is-ci";
 import Logger from "./logger.js";
-
 
 const require = createRequire(import.meta.url);
 const pkg = require("../package.json");
 
+const { repository: { url: cliRepo } } = pkg;
 
 /**
  * @summary Make local copies of files from remote git repository
@@ -19,7 +20,6 @@ const pkg = require("../package.json");
  * @returns {Promise<Boolean>} - true if successful
  */
 export default async function getFilesFromRepo(sourcePath, destinationPath) {
-  const { repository: { url: cliRepo } } = pkg;
   const appPrefix = "reaction-cli";
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), appPrefix));
   const gitOptions = {
@@ -27,9 +27,13 @@ export default async function getFilesFromRepo(sourcePath, destinationPath) {
     binary: "git",
     maxConcurrentProcesses: 6
   };
-  const git = simpleGit(gitOptions);
+  const git = await simpleGit(gitOptions);
+  // On the CI, we need token to access the repo till it's private
+  const gitRepo = isCI ? `https://${process.env.GH_PUBLISHING_TOKEN}@github.com/reactioncommerce/cli.git` : cliRepo;
   try {
-    await git.clone(cliRepo, tmpDir, { "--depth": 1 });
+    await git.clone(gitRepo, tmpDir, {
+      "--depth": 1
+    });
   } catch (error) {
     Logger.error(error);
   }

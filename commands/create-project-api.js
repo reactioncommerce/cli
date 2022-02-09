@@ -27,7 +27,7 @@ async function makeProject(projectName) {
  * @param {String} projectName - The name of the project
  * @returns {Promise<string>} The modified contents
  */
-async function rewriteScripts(packageJson, projectName) {
+async function updatePackageJson(packageJson, projectName) {
   const newScripts = {
     "start": "node --experimental-modules --experimental-json-modules ./index.js",
     "start:dev": "npm run check-node-version && NODE_ENV=development NODE_OPTIONS='--experimental-modules --experimental-json-modules' nodemon ./index.js",
@@ -35,8 +35,7 @@ async function rewriteScripts(packageJson, projectName) {
     "inspect-brk": "NODE_ENV=development node --experimental-modules --experimental-json-modules --inspect-brk ./src/index.js",
     "check-node-version": "node ./utils/checkNodeVersion.cjs",
     "test": "jest --runInBand",
-    "lint": "eslint .",
-    "npm-check": "npm-check -u"
+    "lint": "eslint ."
   };
   const packageData = JSON.parse(packageJson);
   packageData.scripts = newScripts;
@@ -49,6 +48,7 @@ async function rewriteScripts(packageJson, projectName) {
   delete packageData.author;
   delete packageData.bugs;
   packageData.main = "./index.js";
+  packageData.nodemonConfig.watch.push("custom-packages");
   return JSON.stringify(packageData, null, 2);
 }
 
@@ -70,7 +70,7 @@ async function getFileFromCore(fileName) {
 async function getFilesFromCore(projectName) {
   // get files directly from repo so it's always up-to-date
   const packageJson = await getFileFromCore("package.json");
-  const updatedPackageJson = await rewriteScripts(packageJson, projectName);
+  const updatedPackageJson = await updatePackageJson(packageJson, projectName);
   await writeFile(`${projectName}/package.json`, updatedPackageJson);
 
   const pluginsJson = await getFileFromCore("plugins.json");

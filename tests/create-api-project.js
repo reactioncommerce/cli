@@ -1,4 +1,3 @@
-/* eslint-disable jest/valid-expect */
 import { EOL } from "os";
 import { v4 as uuidv4 } from "uuid";
 import rimraf from "rimraf";
