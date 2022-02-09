@@ -39,4 +39,5 @@ export default async function getFilesFromRepo(sourcePath, destinationPath) {
   }
   await copy(`${tmpDir}${sourcePath}`, destinationPath);
   await rimraf.sync(tmpDir);
+  return true;
 }
