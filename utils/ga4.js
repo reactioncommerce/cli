@@ -12,7 +12,7 @@ const GA_ENDPOINT = "https://www.google-analytics.com/collect";
  */
 export default function ga4(clientId) {
   const client = {
-    pageview: async (page, customDimensions, debug = true) => {
+    pageview: async (page, customDimensions, debug = false) => {
       /* Parameters reference
        * v - version, must be 1
        * t - event type, we are using pageview
