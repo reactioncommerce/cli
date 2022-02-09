@@ -40,6 +40,7 @@ async function updatePackageJson(packageJson, projectName) {
   const packageData = JSON.parse(packageJson);
   packageData.scripts = newScripts;
   packageData.name = projectName;
+  packageData.version = "1.0.0";
   delete packageData.release;
   delete packageData.homepage;
   delete packageData.url;
