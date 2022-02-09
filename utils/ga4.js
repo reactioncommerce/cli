@@ -32,7 +32,7 @@ export default function ga4(clientId) {
         headers: {
           "content-type": "text/plain"
         },
-        method: "POST",
+        method: "GET",
         body: params
       });
       // in production mode the call produces no response
@@ -46,6 +46,7 @@ export default function ga4(clientId) {
           if (env.SHOW_VERBOSE_TELEMETRY_DATA) {
             Logger.error("Could not send telemetry data");
           }
+          return false;
         }
       }
       return null;
