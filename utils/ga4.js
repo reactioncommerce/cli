@@ -32,13 +32,13 @@ export default function ga4(clientId) {
         headers: {
           "content-type": "text/plain"
         },
-        method: "GET",
+        method: "POST",
         body: params
       });
       // in production mode the call produces no response
       if (debug) {
         try {
-          const data = await response.json();
+          const data = await response.text();
           return data;
         } catch (error) {
           // swallow this silently
