@@ -62,3 +62,10 @@
 4. Run `reaction telemetry off`
 5. Run any command except help or version
 6. Observe that there is no telemetry output
+
+### Test that GA info is being reported correctly
+
+1. Ensure that telemetry is enabled
+2. Go to `<your-home-directory>/.config/configstore/reaction-cli.json` and look for you `user` entry
+3. Run `reaction create-project api telemetrycheck`
+4. Log into GA console and look at the real time panel to ensure that the info was recorded correctly include os version, etc.
