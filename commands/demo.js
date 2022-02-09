@@ -48,6 +48,12 @@ export default async function demo(demoPath) {
     // eslint-disable-next-line no-console
     console.log(data.toString().trim()); // Echo output of command to console
   });
+
+  dockerCompose.stderr.on("data", (data) => {
+    // eslint-disable-next-line no-console
+    console.log(data.toString().trim()); // Echo output of command to console
+  });
+
   diehard.register(async (signal, uncaughtErr, done) => {
     if (signal === "SIGINT") {
       Logger.warn("Shutting down from Ctrl-C");
