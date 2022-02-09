@@ -1,7 +1,7 @@
 import { spawn } from "child_process";
 import diehard from "diehard";
 import Logger from "../utils/logger.js";
-import checkBeforeDevelop from "../utils/checkBeforeStart.js";
+import checkBeforeDevelop from "../utils/checkBeforeDevelop.js";
 
 /**
  * @summary start develop mode for admin
@@ -9,7 +9,7 @@ import checkBeforeDevelop from "../utils/checkBeforeStart.js";
  * @returns {Boolean} true for success
  */
 export default async function developAdmin(options) {
-  if (!await checkBeforeDevelop()) return;
+  if (!await checkBeforeDevelop("admin")) return;
   Logger.info("Starting Open Commerce Admin Application Server in dev mode", { options });
   const api = spawn("npm", ["run", "start:dev"]);
   api.stdout.on("data", (data) => {

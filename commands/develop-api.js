@@ -1,7 +1,7 @@
 import { spawn } from "child_process";
 import diehard from "diehard";
 import Logger from "../utils/logger.js";
-import checkBeforeDevelop from "../utils/checkBeforeStart.js";
+import checkBeforeDevelop from "../utils/checkBeforeDevelop.js";
 
 /**
  * @summary run project in development mode
@@ -9,7 +9,7 @@ import checkBeforeDevelop from "../utils/checkBeforeStart.js";
  * @returns {Boolean} true for success
  */
 export default async function developApi(options) {
-  if (!await checkBeforeDevelop()) return;
+  if (!await checkBeforeDevelop("api")) return;
   Logger.info("starting development on api", { options });
   Logger.info("Starting Mongo docker image");
   const mongo = spawn("docker-compose", ["up", "-d"]);
