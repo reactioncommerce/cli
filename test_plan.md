@@ -30,7 +30,7 @@
 
 1. If you stopped it, start the api server again by running `reaction develop api` again from the directory you created
 2. Open a new terminal window
-3. Execute `reaction create-profile storefront my-storefront`
+3. Execute `reaction create-project storefront my-storefront`
 4. Verify that the project was created
 5. Change to that directory
 6. Run `reaction develop storefront`. Ensure you get a message saying you need to run `npm install`
@@ -41,7 +41,7 @@
 
 1. If the api server is not running start the api server again by running `reaction develop api` again from the directory you created
 2. Open a new terminal window
-3. Execute `reaction create-profile admin my-admin`
+3. Execute `reaction create-project admin my-admin`
 4. Verify that the project was created
 5. Change to that directory
 6. Run `reaction develop admin`. Ensure you get a message saying you need to run `npm install`
