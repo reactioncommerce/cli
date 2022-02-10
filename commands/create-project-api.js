@@ -74,6 +74,9 @@ async function getFilesFromCore(projectName) {
   const updatedPackageJson = await updatePackageJson(packageJson, projectName);
   await writeFile(`${projectName}/package.json`, updatedPackageJson);
 
+  const packageLock = await getFileFromCore("package-lock.json");
+  await writeFile(`${projectName}/package-lock.json`, packageLock);
+
   const pluginsJson = await getFileFromCore("plugins.json");
   // Add example plugin to plugins.json
   const pluginsData = JSON.parse(pluginsJson);
