@@ -26,6 +26,6 @@ export default async function createProjectStorefront(projectName, options) {
     Logger.error(error);
   }
   await copy(`${projectName}/.env.example`, `${projectName}/.env`);
-  Logger.success("Storefront project created. You can change to this directory and run `npm install`");
+  Logger.success("Storefront project created. You can change to this directory and run `yarn install`");
   return true;
 }
