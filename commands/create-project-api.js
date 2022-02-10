@@ -1,4 +1,5 @@
 import { mkdir, writeFile } from "fs/promises";
+import { parse, stringify } from "envfile";
 import simpleGit from "simple-git";
 import wget from "../utils/wget.js";
 import getFilesFromRepo from "../utils/getFilesFromRepo.js";
@@ -64,6 +65,18 @@ async function getFileFromCore(fileName) {
 }
 
 /**
+ * @summary update dotenv file to point to local mongo
+ * @param {String} envData - file extracted from the reaction repo
+ * @returns {String} updated env file
+ */
+function updateEnv(envData) {
+  const env = parse(envData);
+  env.MONGO_URL = "mongodb://localhost:27017/reaction";
+  const updatedEnv = stringify(env);
+  return updatedEnv;
+}
+
+/**
  * @summary get files directory from core repo
  * @param {String} projectName - The name of the project we are creating
  * @returns {Promise<Boolean>} True if success
@@ -90,7 +103,8 @@ async function getFilesFromCore(projectName) {
   await writeFile(`${projectName}/.nvmrc`, nvmrc);
 
   const dotenv = await getFileFromCore(".env.example");
-  await writeFile(`${projectName}/.env`, dotenv);
+  const updatedDotEnv = updateEnv(dotenv);
+  await writeFile(`${projectName}/.env`, updatedDotEnv);
   return true;
 }
 
