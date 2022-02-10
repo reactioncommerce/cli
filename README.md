@@ -5,6 +5,7 @@
 ## Prerequisites
 
 * Node 14.18.1 or greater
+* [Yarn](https://yarnpkg.com/)
 * [Git](https://git-scm.com/)
 * [Docker](https://www.docker.com/)
 * [Docker Compose](https://docs.docker.com/compose/)
