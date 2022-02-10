@@ -1,16 +1,17 @@
 import fs from "fs";
 import path from "path";
 import os from "os";
+import { createRequire } from "module";
 import simpleGit from "simple-git";
 import { copy } from "fs-extra";
 import rimraf from "rimraf";
 import isCI from "is-ci";
-import pkg from "../package.json";
 import Logger from "./logger.js";
 
-const {
-  repository: { url: cliRepo }
-} = pkg;
+const require = createRequire(import.meta.url);
+const pkg = require("../package.json");
+
+const { repository: { url: cliRepo } } = pkg;
 
 /**
  * @summary Make local copies of files from remote git repository
@@ -38,4 +39,5 @@ export default async function getFilesFromRepo(sourcePath, destinationPath) {
   }
   await copy(`${tmpDir}${sourcePath}`, destinationPath);
   await rimraf.sync(tmpDir);
+  return true;
 }

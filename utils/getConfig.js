@@ -1,5 +1,9 @@
+import { createRequire } from "module";
 import Configstore from "configstore";
-import pkg from "../package.json";
+
+
+const require = createRequire(import.meta.url);
+const pkg = require("../package.json");
 
 const config = new Configstore(pkg.name);
 

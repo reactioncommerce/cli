@@ -6,6 +6,9 @@
   "bin": {
     "reaction": "index.js"
   },
+  "engines": {
+    "node": ">=14.18.1"
+  },
   "type": "module",
   "scripts": {
     "test": "node --experimental-json-modules --no-warnings node_modules/mocha/bin/_mocha ./tests/*.* --full-trace",
