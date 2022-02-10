@@ -12,7 +12,7 @@ const GA_ENDPOINT = "https://www.google-analytics.com/collect";
  */
 export default function ga4(clientId) {
   const client = {
-    pageview: async (page, customDimensions, debug = true) => {
+    pageview: async (page, customDimensions, debug = false) => {
       /* Parameters reference
        * v - version, must be 1
        * t - event type, we are using pageview
@@ -38,7 +38,7 @@ export default function ga4(clientId) {
       // in production mode the call produces no response
       if (debug) {
         try {
-          const data = await response.json();
+          const data = await response.text();
           return data;
         } catch (error) {
           // swallow this silently
@@ -46,6 +46,7 @@ export default function ga4(clientId) {
           if (env.SHOW_VERBOSE_TELEMETRY_DATA) {
             Logger.error("Could not send telemetry data");
           }
+          return false;
         }
       }
       return null;

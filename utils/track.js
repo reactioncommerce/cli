@@ -37,6 +37,8 @@ function setCustomDimensions(versions, countryCode) {
  */
 export default async function track(command, args, options, userData = {}) {
   const config = getConfig();
+  const telemetryEnabled = config.get("telemetry");
+  if (!telemetryEnabled) return;
   const versions = getVersions();
   let countryCode;
   // Let's not use the user's bandwidth to get the location every time
