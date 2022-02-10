@@ -27,7 +27,7 @@ describe("The create-project-api command", () => {
     const responseLines = response.trim().split(EOL);
     // eslint-disable-next-line jest/valid-expect
     expect(responseLines[1]).to.equal("reaction-cli: Project creation complete. Change to your directory and run `npm install`");
-  }).timeout(15000);
+  }).timeout(5000);
 });
 
 afterEach(async () => {
