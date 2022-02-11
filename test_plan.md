@@ -1,6 +1,6 @@
 # CLI manual test plan
 
-## For each version of node supported (14, 16, 17)
+## Using Node 14.18.1
 
 1. Move to a scratch directory, so it's easy to clean up
 2. Install package as global (`npm install -g`)
