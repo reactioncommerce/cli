@@ -18,7 +18,7 @@
 5. Run `npm install`
 6. Run `reaction develop api`. Validate that Reaction starts in dev mode and you see log output
 7. Hit Ctrl-C
-8. Verify that the mongo docker image is shut down
+8. Verify that the mongo docker image is shut down by running `docker-compose ps` from the command line and seeing an empty entry.
 
 ### Test that you can create a plugin within the api project
 1. Navigate to the `myserver` directory that you just created
@@ -49,6 +49,8 @@
 8. Run `reaction develop admin`. Validate that admin starts in dev mode and you see log output and the admin panel loads. Note that the admin can take a while to start so be patient
 
 ### Test that you can create a demo project
+
+** Note that the server from above must be shutdown and mongo must be stopped for this to work.
 
 1. Run `reaction demo mydemo`
 2. Change to the `mydemo` directory
