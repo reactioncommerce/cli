@@ -45,7 +45,8 @@ program
   .addArgument(new commander.Argument("[type]", "which project type to develop on")
     .choices(["api", "storefront", "admin"])
     .default("api"))
-  .option("--debug")
+  .option("--no-debug")
+  .option("--no-mongo-shutdown", "don't shut down mongo on abort")
   .action((type, options) => {
     commands.develop(type, options);
   });

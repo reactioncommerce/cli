@@ -9,6 +9,7 @@ import checkBeforeDevelop from "../utils/checkBeforeDevelop.js";
  * @returns {Boolean} true for success
  */
 export default async function developApi(options) {
+  const { mongoShutdown } = options;
   if (!await checkBeforeDevelop("api")) return;
   Logger.info("starting development on api", { options });
   Logger.info("Starting Mongo docker image");
@@ -33,8 +34,27 @@ export default async function developApi(options) {
     if (signal === "SIGINT") {
       Logger.warn("Shutting down from Ctrl-C");
     }
-    await spawn("docker-compose", ["down"]);
-    done();
+
+    if (mongoShutdown) {
+      Logger.info("Shutting down mongo instance");
+      const mongoDown = await spawn("docker-compose", ["down"]);
+
+      mongoDown.stdout.on("data", (data) => {
+        // eslint-disable-next-line no-console
+        console.log(data.toString().trim()); // Echo output of command to console
+      });
+
+      mongoDown.stderr.on("data", (data) => {
+        // eslint-disable-next-line no-console
+        console.log(data.toString().trim()); // Echo error output
+      });
+
+      mongoShutdown.stdout.on("close", () => {
+        done();
+      });
+    } else {
+      done();
+    }
   });
 
   diehard.listen();
