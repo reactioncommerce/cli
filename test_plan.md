@@ -2,7 +2,7 @@
 
 ## Using Node 14.18.1
 
-1. Move to a scratch directory, so it's easy to clean up
+1. Move to a scratch directory, so it's easy to clean up. For reference we will call this `cli-test`
 2. Install package as global (`npm install -g`)
 
 ### Test that application starts
@@ -30,10 +30,10 @@
 
 1. If you stopped it, start the api server again by running `reaction develop api` again from the directory you created
 2. Open a new terminal window
-3. Execute `reaction create-project storefront my-storefront`
+3. From the `cli-test` directory run `reaction create-project storefront my-storefront`
 4. Verify that the project was created
 5. Change to that directory
-6. Run `reaction develop storefront`. Ensure you get a message saying you need to run `npm install`
+6. Run `reaction develop storefront`. Ensure you get a message saying you need to run `yarn install`
 7. Run `yarn install`
 8. Run `reaction develop storefront`. Validate that storefront starts in dev mode and you see log output and that storefront loads in the browser
 
@@ -41,12 +41,12 @@
 
 1. If the api server is not running start the api server again by running `reaction develop api` again from the directory you created
 2. Open a new terminal window
-3. Execute `reaction create-project admin my-admin`
+3. Execute `reaction create-project admin my-admin` from the `cli-testing` directory
 4. Verify that the project was created
 5. Change to that directory
 6. Run `reaction develop admin`. Ensure you get a message saying you need to run `npm install`
 7. Run `npm install`
-8. Run `reaction develop admin`. Validate that admin starts in dev mode and you see log output and the admin panel loads
+8. Run `reaction develop admin`. Validate that admin starts in dev mode and you see log output and the admin panel loads. Note that the admin can take a while to start so be patient
 
 ### Test that you can create a demo project
 
