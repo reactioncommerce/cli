@@ -13,17 +13,9 @@ const program = new commander.Command();
 program.version(pkg.version);
 
 program
-  .command("demo")
-  .description("Run Open Commerce locally in non-dev mode using docker-compose")
-  .argument("<path>", "Where to copy the demo files")
-  .action((path) => {
-    commands.demo(path);
-  });
-
-program
   .command("create-project")
   .description("Create a new Open Commerce project of one of the three types")
-  .addArgument(new commander.Argument("<type>", "which project type to create").choices(["api", "storefront", "admin"]))
+  .addArgument(new commander.Argument("<type>", "which project type to create").choices(["api", "storefront", "admin", "demo"]))
   .argument("<name>", "what to name the project")
   .option("--populate")
   .action((type, name, options) => {

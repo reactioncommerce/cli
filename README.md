@@ -43,7 +43,7 @@ Open Commerce includes an Admin panel for managing your system plus an example s
 ### More Commands
 
 * You can run `reaction build <api|admin|storefront>` to build a dockerfile that includes your custom code while in the directory
-* You can run `reaction demo` to install and run a docker-compose file that will launch all of the projects so that you can test them out. This is for evaluation purposes, not development.
+* You can run `reaction create-project demo <my-demo>` to install and run a docker-compose file that will launch all of the projects so that you can test them out. This is for evaluation purposes, not development.
 
 
 ### Telemetry

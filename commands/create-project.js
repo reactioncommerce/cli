@@ -3,11 +3,13 @@ import checkDependencies from "../utils/checkDependencies.js";
 import createProjectApi from "./create-project-api.js";
 import createProjectAdmin from "./create-project-admin.js";
 import createProjectStorefront from "./create-project-storefront.js";
+import createProjectDemo from "./create-project-demo.js";
 
 const methodMap = {
   api: createProjectApi,
   admin: createProjectAdmin,
-  storefront: createProjectStorefront
+  storefront: createProjectStorefront,
+  demo: createProjectDemo
 };
 
 const extraDependencyMap = {

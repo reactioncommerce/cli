@@ -1,7 +1,7 @@
 import telemetryCheck from "../utils/telemetryCheck.js";
 import track from "../utils/track.js";
 import checkForNewVersion from "../utils/checkForNewVersion.js";
-import demo from "./demo.js";
+import createProjectDemo from "./create-project-demo.js";
 import createProject from "./create-project.js";
 import createPlugin from "./create-plugin.js";
 import develop from "./develop.js";
@@ -12,7 +12,7 @@ export default {
   demo: (demoPath) => {
     telemetryCheck();
     checkForNewVersion();
-    demo(demoPath);
+    createProjectDemo(demoPath);
     track("demo", {}, {});
   },
   createProject: (projectType, projectName, options) => {
