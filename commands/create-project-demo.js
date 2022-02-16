@@ -24,7 +24,7 @@ async function createDemoDirectory(demoPath) {
  * @returns {Boolean} true if successful
  the demo directory
  */
-export default async function demo(demoPath) {
+export default async function createProjectDemo(demoPath) {
   if (await pathExists(demoPath)) {
     Logger.error(`Cannot create directory ${demoPath}, already exists`);
     return false;
