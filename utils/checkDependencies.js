@@ -2,7 +2,7 @@ import { spawn } from "child_process";
 import { sync as cmdExists } from "command-exists";
 import Logger from "./logger.js";
 
-const supportedNodeVersions = ["v14", "v16", "v17"];
+const supportedNodeVersions = ["v14"];
 
 /**
  * @summary validate that we are using a supported version of node
