@@ -11,10 +11,14 @@ import installMeteorIfMissing from "../utils/installMeteorIfMissing.js";
  * @returns {Boolean} true for success
  */
 export default async function createProjectAdmin(projectName, options) {
-  const success = await installMeteorIfMissing();
-  if (!success) {
-    Logger.warn("No Meteor installed and Meteor installation unsuccessful. Aborting project creation");
-    return false;
+  const { skipMeteorInstall } = options;
+  // this is so tests can run without having to install Meteor every time
+  if (!skipMeteorInstall) {
+    const success = await installMeteorIfMissing();
+    if (!success) {
+      Logger.warn("No Meteor installed and Meteor installation unsuccessful. Aborting project creation");
+      return false;
+    }
   }
   Logger.info("Creating admin", { projectName, options });
   const gitOptions = {
