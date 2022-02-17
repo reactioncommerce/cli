@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-* Node 14.18.1 or greater
+* Node 14.18.1 or greater < 16
 * [Yarn](https://yarnpkg.com/)
 * [Git](https://git-scm.com/)
 * [Docker](https://www.docker.com/)
