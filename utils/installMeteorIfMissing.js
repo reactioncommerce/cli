@@ -16,7 +16,7 @@ export default async function installMeteorIfMissing() {
       message: "This project requires Meteor to run which needs to be installed globally, is it okay to install it?",
       initial: true
     });
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       if (isOkayToInstall) {
         const args = ["https://install.meteor.com/?release=2.6"];
         const meteorInstall = spawn("curl", args);
@@ -38,11 +38,11 @@ export default async function installMeteorIfMissing() {
             resolve(true);
           } else {
             Logger.error("Process completed but Meteor installation was unsuccessful");
-            reject(false);
+            resolve(false);
           }
         });
       } else {
-        reject(false);
+        resolve(false);
       }
     });
   }
