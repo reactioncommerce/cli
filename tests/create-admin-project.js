@@ -15,10 +15,10 @@ beforeEach(async () => {
 
 describe("The create-project-admin command", () => {
   it("should print the correct output", async () => {
-    const response = await execute("./index.js", ["create-project", "admin", "myadmin"]);
+    const response = await execute("./index.js", ["create-project", "admin", "myadmin", "--skip-meteor-install"]);
     const responseLines = response.trim().split(EOL);
     // eslint-disable-next-line jest/valid-expect
-    expect(responseLines[0]).to.equal('reaction-cli: Creating admin: {"projectName":"myadmin","options":{}})');
+    expect(responseLines[0]).to.equal('reaction-cli: Creating admin: {"projectName":"myadmin","options":{"skipMeteorInstall":true}})');
   }).timeout(350000); // cloning the admin takes a long time
 });
 
