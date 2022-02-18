@@ -17,7 +17,7 @@ describe("the node used for tests", () => {
   it("should be 14 or 16", async () => {
     const response = await execute("--version", []);
     // eslint-disable-next-line jest/valid-expect
-    expect(response.trim().split(".")[0]).to.oneOf(["v16", "v14"]);
+    expect(response.trim().split(".")[0]).to.oneOf(["v15", "v14"]);
   });
 });
 
