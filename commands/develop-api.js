@@ -2,6 +2,7 @@ import { spawn } from "child_process";
 import diehard from "diehard";
 import Logger from "../utils/logger.js";
 import checkBeforeDevelop from "../utils/checkBeforeDevelop.js";
+import runCommandInSpawn from "../utils/runCommandInSpawn.js";
 
 /**
  * @summary run project in development mode
@@ -13,12 +14,10 @@ export default async function developApi(options) {
   if (!await checkBeforeDevelop("api")) return;
   Logger.info("starting development on api", { options });
   Logger.info("Starting Mongo docker image");
-  const mongo = spawn("docker-compose", ["up", "-d"]);
-  mongo.stdout.on("data", (data) => {
-    // eslint-disable-next-line no-console
-    console.log(data.toString().trim()); // Echo output of command to console
-  });
-  Logger.info("Starting Open Commerce API Server in dev mode");
+  const mongo = await runCommandInSpawn("docker-compose", ["up", "-d"]);
+  if (!mongo) {
+    Logger.error("Was unable to start MongoDb container. Cannot run develop");
+  }
   const api = spawn("npm", ["run", "start:dev"]);
   api.stdout.on("data", (data) => {
     // eslint-disable-next-line no-console
@@ -37,21 +36,7 @@ export default async function developApi(options) {
 
     if (mongoShutdown) {
       Logger.info("Shutting down mongo instance");
-      const mongoDown = await spawn("docker-compose", ["down"]);
-
-      mongoDown.stdout.on("data", (data) => {
-        // eslint-disable-next-line no-console
-        console.log(data.toString().trim()); // Echo output of command to console
-      });
-
-      mongoDown.stderr.on("data", (data) => {
-        // eslint-disable-next-line no-console
-        console.log(data.toString().trim()); // Echo error output
-      });
-
-      mongoShutdown.stdout.on("close", () => {
-        done();
-      });
+      await runCommandInSpawn("docker-compose", ["down"]);
     } else {
       done();
     }
