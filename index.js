@@ -1,4 +1,4 @@
-#!/usr/bin/env -S node --experimental-json-modules --no-warnings
+#!/usr/bin/env node
 import { createRequire } from "module";
 import * as commander from "commander/esm.mjs";
 import commands from "./commands/index.js";
