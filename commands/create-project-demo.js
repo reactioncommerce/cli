@@ -21,10 +21,12 @@ async function createDemoDirectory(demoPath) {
 /**
  * @summary download demo files and runs docker-compose
  * @param {String} demoPath - Where to create
+ * @param {Object} options - Other command options
  * @returns {Boolean} true if successful
  the demo directory
  */
-export default async function createProjectDemo(demoPath) {
+export default async function createProjectDemo(demoPath, options) {
+  const { dontStartDemo } = options;
   if (await pathExists(demoPath)) {
     Logger.error(`Cannot create directory ${demoPath}, already exists`);
     return false;
@@ -40,10 +42,11 @@ export default async function createProjectDemo(demoPath) {
   if (!portsAvailable) return false;
   await createDemoDirectory(demoPath);
   await getFilesFromRepo("/templates/demo/", demoPath);
-  const options = {
+  const dockerOptions = {
     cwd: path.join(process.cwd(), demoPath)
   };
-  const dockerCompose = spawn("docker-compose", ["up", "-d"], options);
+  if (dontStartDemo) return true;
+  const dockerCompose = spawn("docker-compose", ["up", "-d"], dockerOptions);
   dockerCompose.stdout.on("data", (data) => {
     // eslint-disable-next-line no-console
     console.log(data.toString().trim()); // Echo output of command to console
