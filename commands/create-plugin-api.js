@@ -79,11 +79,15 @@ async function addToPluginsJson(pluginName) {
  * @returns {Boolean} true for success
  */
 export default async function createPluginApi(pluginName, options) {
+  if (!await pathExists("custom-packages")) {
+    Logger.error("It doesn't appear that you are in an api project directory");
+    return false;
+  }
   Logger.info("Creating API plugin", { pluginName, options });
   const pluginPath = path.join("custom-packages", pluginName);
   if (await pathExists(pluginPath)) {
     Logger.error(`Cannot create directory ${pluginName}, already exists`);
-    return;
+    return false;
   }
 
   await cloneFromExample(pluginPath);
@@ -91,4 +95,5 @@ export default async function createPluginApi(pluginName, options) {
   await gitInitDirectory(pluginPath);
   await addToPluginsJson(pluginName);
   Logger.info("Plugin creation complete");
+  return true;
 }
