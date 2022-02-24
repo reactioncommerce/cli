@@ -1,19 +1,6 @@
-import fetch from "node-fetch";
 import Logger from "../utils/logger.js";
+import checkPort from "./checkPort.js";
 
-/**
- * @summary check if a local port returns a response
- * @param {String} path - The path the check
- * @returns {Promise<boolean>} - If the port responded
- */
-async function checkPort(path) {
-  try {
-    const results = await fetch(path);
-    return !!results;
-  } catch (error) {
-    return false;
-  }
-}
 
 /**
  * @summary check if all the ports where the system will run are available

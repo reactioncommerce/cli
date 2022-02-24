@@ -1,8 +1,23 @@
+import { writeFile } from "fs/promises";
+import fs from "fs";
 import simpleGit from "simple-git";
 import { copy } from "fs-extra";
+import { parse, stringify } from "envfile";
 import Logger from "../utils/logger.js";
 import installMeteorIfMissing from "../utils/installMeteorIfMissing.js";
 
+/**
+ * @summary update env file with correct mongo information
+ * @param {String} envData - data from file
+ * @returns {string} - Updated file data
+ */
+function updateEnv(envData) {
+  const env = parse(envData);
+  env.MONGO_OPLOG_URL = "mongodb://localhost:27017/local";
+  env.MONGO_URL = "mongodb://localhost:27017/reaction";
+  const updatedEnv = stringify(env);
+  return updatedEnv;
+}
 
 /**
  * @summary clones projects locally from repo
@@ -35,6 +50,9 @@ export default async function createProjectAdmin(projectName, options) {
     return false;
   }
   await copy(`${projectName}/.env.example`, `${projectName}/.env`);
+  const dotEnv = fs.readFileSync(`${projectName}/.env.example`, { encoding: "utf8" });
+  const updatedDotEnv = updateEnv(dotEnv);
+  await writeFile(`${projectName}/.env`, updatedDotEnv);
   Logger.success("Admin project created. You can change to this directory and run `npm install`");
   return true;
 }
