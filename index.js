@@ -1,4 +1,4 @@
-#!/usr/bin/env -S node --experimental-json-modules --no-warnings
+#!/usr/bin/env node
 import { createRequire } from "module";
 import * as commander from "commander/esm.mjs";
 import commands from "./commands/index.js";
@@ -19,6 +19,7 @@ program
   .argument("<name>", "what to name the project")
   // .option("--populate")
   .option("--skip-meteor-install", "Skip Meteor install when creating admin project")
+  .option("--dont-start-demo", "Don't auto start the demo project after creation")
   .action((type, name, options) => {
     commands.createProject(type, name, options);
   });
