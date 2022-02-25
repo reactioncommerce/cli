@@ -2,8 +2,9 @@
 
 ## Using Node 14.18.1
 
-1. Install package as global (`npm install -g`)
-2. Move to a scratch directory, so it's easy to clean up. For reference we will call this `cli-test`
+1. Clone this repo to your local machine
+2. Install package as global (`npm install -g`)
+3. Move to a scratch directory, so it's easy to clean up. For reference we will call this `cli-test`
 
 
 ### Test that application starts
