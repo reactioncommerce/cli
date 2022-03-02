@@ -40,6 +40,7 @@
     "public-ip": "^5.0.0",
     "rimraf": "^3.0.2",
     "simple-git": "^2.48.0",
+    "sync-fetch": "^0.3.1",
     "update-notifier": "^5.1.0",
     "uuid": "^8.3.2"
   },
