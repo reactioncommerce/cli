@@ -1,12 +1,12 @@
 import telemetryCheck from "../utils/telemetryCheck.js";
 import track from "../utils/track.js";
 import checkForNewVersion from "../utils/checkForNewVersion.js";
+import versionSupportCheck from "../utils/versionSupportCheck.js";
 import createProjectDemo from "./create-project-demo.js";
 import createProject from "./create-project.js";
 import createPlugin from "./create-plugin.js";
 import develop from "./develop.js";
 import telemetry from "./telemetry.js";
-import versionSupportCheck from "./versionSupportCheck.js";
 import build from "./build.js";
 
 export default {

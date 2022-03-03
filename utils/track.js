@@ -5,7 +5,6 @@ import getVersions from "./versions.js";
 import getLocation from "./getLocation.js";
 import getConfig from "./getConfig.js";
 
-
 /**
  * @summary turn version information into custom dimensions for GA
  * @param {Object} versions - The versions object

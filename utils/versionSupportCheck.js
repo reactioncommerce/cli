@@ -25,7 +25,7 @@ export default function versionSupportCheck() {
     // Check for unsupported versions
     if (supported?.unsupportedVersions?.indexOf(currentVersion) > -1) {
       // The current version is not supported. Exit!
-      Logger.error("This version is no longer supported. Please update reaction cli using\n\t npm update -g @reactioncommerce/cli");
+      Logger.error("This version is no longer supported. Please update reaction cli using\n\t npm update -g @reactioncommerce/reaction-cli");
       process.exit(); // eslint-disable-line no-process-exit
     }
   } catch (err) {
