@@ -13,8 +13,7 @@
 
 ## Step One - Install the command line tool
 
-1. Run `npm install` to update the `node_modules`.
-2. Install the cli by running `npm install -g @reactioncommerce/reaction-cli` (on some systems you may need to run this with the `sudo` prefix)
+1. Run the cli by running `npm install -g @reactioncommerce/reaction-cli` (on some systems you may need to run this with the `sudo` prefix)
 
 ## Step Two - Create your project(s)
 
@@ -46,7 +45,7 @@ Open Commerce includes an Admin panel for managing your system plus an example s
 * You can run `reaction build <api|admin|storefront>` to build a dockerfile that includes your custom code while in the directory
 * You can run `reaction create-project demo <my-demo>` to install and run a docker-compose file that will launch all of the projects so that you can test them out. This is for evaluation purposes, not development. 
 
-> **NOTE:** All data for a demo is stored on its docker volume named `<my-demo>_mongo-db4demo`. To completly clear the data used by a demo run `docker rm <my-demo>_mongo-db4demo`
+> **NOTE:** All data for a demo is stored on its docker volume named `<my-demo>_mongo-db4demo`. To completly clear the data used by a demo run `docker-compose down --volumes`. Alternatively you can list the volumes using `docker volume ls` and remove it by name using `docker volume rm <my-demo>_mongo-db4demo`.
 
 
 ### Telemetry
