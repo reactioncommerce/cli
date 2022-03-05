@@ -13,7 +13,7 @@
 
 ## Step One - Install the command line tool
 
-1. Run the cli by running `npm install -g @reactioncommerce/reaction-cli` (on some systems you may need to run this with the `sudo` prefix)
+1. First install the cli by running `npm install -g @reactioncommerce/reaction-cli` (on some systems you may need to run this with the `sudo` prefix)
 
 ## Step Two - Create your project(s)
 
