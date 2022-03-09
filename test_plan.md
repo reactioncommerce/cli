@@ -43,7 +43,7 @@
 
 1. If the api server is not running start the api server again by running `reaction develop api` again from the directory you created
 2. Open a new terminal window
-3. Execute `reaction create-project admin my-admin` from the `cli-testing` directory
+3. Execute `reaction create-project admin my-admin` from the `cli-test` directory
 4. Verify that the project was created
 5. Change to that directory
 6. Run `reaction develop admin`. Ensure you get a message saying you need to run `npm install`
@@ -54,9 +54,9 @@
 
 ** Note that the server from above must be shutdown and mongo must be stopped for this to work.
 
-1. Run `reaction demo mydemo`
+1. Run `reaction create-project demo mydemo`
 2. Change to the `mydemo` directory
-3. Check that the storefront, graphQL server and admin are all running (this might take a minute or so)
+3. Check that the storefront (localhost:4000), graphQL server (localhost:3000)  and admin (localhost:4080) are all running (this might take a minute or so)
 
 ### Test that telemetry is turned off when set to off
 
