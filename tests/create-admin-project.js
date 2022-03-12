@@ -18,7 +18,7 @@ describe("The create-project-admin command", () => {
     const response = await execute("./index.js", ["create-project", "admin", "myadmin", "--skip-meteor-install"]);
     const responseLines = response.trim().split(EOL);
     // eslint-disable-next-line jest/valid-expect
-    expect(responseLines[0]).to.equal('reaction-cli: Creating admin: {"projectName":"myadmin","options":{"skipMeteorInstall":true}})');
+    expect(responseLines[0]).to.equal('reaction-cli: Creating admin: {"projectName":"myadmin","options":{"skipMeteorInstall":true}}');
   }).timeout(350000); // cloning the admin takes a long time
 });
 

@@ -1,0 +1,6 @@
+{
+  "unsupportedVersions": ["0.0.0"],
+  "messages": {
+    "0.0.1": ["This version shouldn't exist", "Please upgrade to latest"]
+  }
+}

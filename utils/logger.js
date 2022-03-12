@@ -14,9 +14,9 @@ const cliName = "reaction-cli";
 function log(color, msg, obj = "") {
   if (obj && typeof obj === "object") {
     const stringifiedObj = JSON.stringify(obj, null, 0);
-    console.log((`${chalk.blueBright(cliName)}: ${chalk[color](msg)}: ${chalk[color](stringifiedObj)})`));
+    console.log(`${chalk.blueBright(cliName)}: ${chalk[color](msg)}: ${chalk[color](stringifiedObj)}`);
   } else {
-    console.log((`${chalk.blueBright(cliName)}: ${chalk[color](msg)}`));
+    console.log(`${chalk.blueBright(cliName)}: ${chalk[color](msg)}`);
   }
 }
 
@@ -42,13 +42,10 @@ const loggers = {
     log("red", msg, obj);
   },
   debug(msg, obj = "") {
-    let debugMessage;
-    if (process.env.REACTION_CLI_DEBUG === "true") {
-      debugMessage = `[DEBUG] ${msg}`;
-    } else {
-      debugMessage = msg;
+    if (process.env.REACTION_CLI_DEBUG !== "true") {
+      return;
     }
-    log("cyan", debugMessage, obj);
+    log("cyan", `[DEBUG] ${msg}`, obj);
   }
 };
 

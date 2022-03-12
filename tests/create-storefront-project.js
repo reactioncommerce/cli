@@ -19,7 +19,7 @@ describe("The create-project-storefront command", () => {
     const response = await execute("./index.js", ["create-project", "storefront", "mystore"]);
     const responseLines = response.trim().split(EOL);
     // eslint-disable-next-line jest/valid-expect
-    expect(responseLines[0]).to.equal('reaction-cli: Creating Storefront: {"projectName":"mystore","options":{}})');
+    expect(responseLines[0]).to.equal('reaction-cli: Creating Storefront: {"projectName":"mystore","options":{}}');
   }).timeout(350000);
 });
 
