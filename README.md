@@ -26,13 +26,51 @@ First install the cli by running:
 ```
 npm install -g @reactioncommerce/reaction-cli
 ```
- (on some systems you may need to run this with the `sudo` prefix):
- ```
+(on some systems you may need to run this with the `sudo` prefix):
+
+```
 sudo npm install -g @reactioncommerce/reaction-cli
 ```
+Once this has installed you need to clone the git repo using the SSH key. You can do this by using: 
+
+```
+git clone <SSH Key>
+```
+After this, select the cli directory using: 
+
+```
+cd cli
+```
+Then: 
+
+```
+npm install
+```
+Then:
+
+```
+ npm install -g
+```
+You can test to see if it has worked here by running: 
+
+```
+Reaction help
+```
+
+
 ## Creating a project
 ---
-Create your Open Commerce project by running:
+Before you start creating a project, make sure you are not in the CLI directory. You can do this by inputing: 
+
+```
+cd ..
+```
+Then: 
+```
+cd <choice of folder>
+```
+
+Once this is done, you can create your Open Commerce project by running:
 ```
 reaction create-project api my-server
  ```
@@ -44,7 +82,12 @@ cd my-server
 Then run:
 ```
 npm install 
-``` 
+```
+If this doesn't work it could be because of the version of EsLint you are running. If this is the case run:
+
+```
+npm install --legacy-peer-deps
+```
 Finaly run:
 ```
 reaction develop api
@@ -57,6 +100,41 @@ reaction create-plugin api <my-plugin-name>
 ```
  This plugin will now be loaded the next time you start Open Commerce.
 
+## Add the Admin/Storefront 
+
+Open Commerce includes an Admin panel for managing your system plus an example storefront implementation so you can see how you would go about building your own.
+
+### Adding the Admin
+To add the admin project you can run:
+```
+reaction create-project admin <myadminname> 
+```
+and a <myadminname> directory will be created in the new directory. Then run:
+```
+npm install
+```
+and you can start the admin project by running:
+```
+reaction develop admin
+```
+For more information about developing the admin you can go to Mailchimp Open Commerce Documentation
+
+### Adding a Storefront
+To add the example storefront project so you can browse your installation just run:
+```
+reaction create-project storefront
+```
+To run the storefront navigate to the newly created storefront directory and run:
+```
+npm install
+```
+and then:
+```
+npm run start
+```
+The storefront will be available on port 4000
+
+
 ## Usage
 ---
 - It is always useful to be able to test the the CLI is working properly before you start using it. You can do that by clicking [here](https://github.com/reactioncommerce/cli/blob/trunk/test_plan.md) and following the instruction on the page. 
@@ -64,7 +142,8 @@ reaction create-plugin api <my-plugin-name>
 ## Commands
 ---
 ```
- cli git:(trunk) reaction help                       
+ cli on  trunk is 📦 v0.0.0-development via ⬢ v14.18.1 
+➜ reaction help
 Usage: reaction [options] [command]
 
 Options:
@@ -93,10 +172,7 @@ reaction create-project demo <my-demo>
 ---
 If you find any issues please reports them [here.](https://github.com/reactioncommerce/cli/issues)
 
-## Comparison to previous version 
+## Telemetry 
 ---
 This project sends back anonymous data to our analytics provider so we can understand how users are using the product.
 If you want to see what data is being sent you can set the environment variable: `SHOW_VERBOSE_TELEMETRY_DATA` to `true`
-
-## Licence
----
