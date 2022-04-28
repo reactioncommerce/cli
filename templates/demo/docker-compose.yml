@@ -3,7 +3,7 @@ version: "3.4"
 
 services:
   api:
-    image: reactioncommerce/reaction:4.1.5
+    image: reactioncommerce/reaction:latest
     depends_on:
       - mongo
     env_file:
@@ -12,14 +12,14 @@ services:
       - "3000:3000"
 
   storefront:
-    image: reactioncommerce/example-storefront:5.1.1
+    image: reactioncommerce/example-storefront:latest
     env_file:
       - ./.storefront.env
     ports:
       - "4000:4000"
 
   admin:
-    image: reactioncommerce/admin:4.0.0-beta.15
+    image: reactioncommerce/admin:latest
     env_file:
       - ./.admin.env
     ports:
