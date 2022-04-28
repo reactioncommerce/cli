@@ -1,6 +1,7 @@
 import path from "path";
 import fs from "fs";
 import rimraf from "rimraf";
+import { paramCase, capitalCase } from "change-case";
 import simpleGit from "simple-git";
 import pathExists from "../utils/pathExists.js";
 import Logger from "../utils/logger.js";
@@ -38,12 +39,12 @@ async function removeGitDirectory(pluginPath) {
 
 /**
  * @summary git init the newly created plugin
- * @param {String} pluginName - The project to init
+ * @param {String} pluginPath - The project to init
  * @returns {Promise<Boolean>} true if success
  */
-async function gitInitDirectory(pluginName) {
+async function gitInitDirectory(pluginPath) {
   const gitOptions = {
-    baseDir: `${process.cwd()}/${pluginName}`,
+    baseDir: `${pluginPath}`,
     binary: "git",
     maxConcurrentProcesses: 6
   };
@@ -58,16 +59,35 @@ async function gitInitDirectory(pluginName) {
 /**
  * @summary add the newly created plugin to plugins.json, so it will load
  * @param {String} pluginName - The name of the created plugin
+ * @param {String} paramCaseName - The name of the plugin as param case
  * @returns {Promise<Object>} - The updated plugins.json data
  */
-async function addToPluginsJson(pluginName) {
+async function addToPluginsJson(pluginName, paramCaseName) {
   Logger.info("Updated plugins.json");
   const pluginJson = fs.readFileSync("plugins.json", { encoding: "utf8", flag: "r" });
   const pluginData = JSON.parse(pluginJson);
-  const pluginLine = `./custom-packages/${pluginName}/index.js`;
-  pluginData[pluginName] = pluginLine;
+  const pluginLine = `./custom-packages/${paramCaseName}/index.js`;
+  pluginData[paramCaseName] = pluginLine;
   const updatedPluginsJson = JSON.stringify(pluginData, null, 4);
   fs.writeFileSync("plugins.json", updatedPluginsJson, { encoding: "utf8" });
+  return pluginData;
+}
+
+/**
+ * @summary Update the plugins info with the correct name
+ * @param {String} pluginPath - The path to the plugin
+ * @param {String} pluginName - The name of the created plugin
+ * @param {String} paramCaseName - The name of the plugin as param case
+ * @returns {Promise<Object>} - The updated plugins.json data
+ */
+async function updatePackageJson(pluginPath, pluginName, paramCaseName) {
+  const packagePath = path.join(pluginPath, "package.json");
+  const packageFile = fs.readFileSync(packagePath, { encoding: "utf8", flag: "r" });
+  const pluginData = JSON.parse(packageFile);
+  pluginData.name = paramCaseName;
+  pluginData.label = capitalCase(paramCaseName);
+  const updatedPackageJson = JSON.stringify(pluginData, null, 4);
+  fs.writeFileSync(packagePath, updatedPackageJson, { encoding: "utf8" });
   return pluginData;
 }
 
@@ -83,17 +103,20 @@ export default async function createPluginApi(pluginName, options) {
     Logger.error("It doesn't appear that you are in an api project directory");
     return false;
   }
+
+  const paramCaseName = paramCase(pluginName);
   Logger.info("Creating API plugin", { pluginName, options });
-  const pluginPath = path.join("custom-packages", pluginName);
-  if (await pathExists(pluginPath)) {
-    Logger.error(`Cannot create directory ${pluginName}, already exists`);
+  const pluginPath = path.join("custom-packages", paramCaseName);
+  if (await pathExists(paramCaseName)) {
+    Logger.error(`Cannot create directory ${paramCaseName}, already exists`);
     return false;
   }
 
   await cloneFromExample(pluginPath);
   await removeGitDirectory(pluginPath);
   await gitInitDirectory(pluginPath);
-  await addToPluginsJson(pluginName);
+  await updatePackageJson(pluginPath, pluginName, paramCaseName);
+  await addToPluginsJson(pluginName, paramCaseName);
   Logger.info("Plugin creation complete");
   return true;
 }
