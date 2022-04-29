@@ -7,7 +7,7 @@
 
 ## Overview
 ---
-The Open Commerce CLI has been created to optimize speed and simplicity, where even developers who are new to Open Commerce can now start developing with a few simple commands. Our goal with this tool is to address the challenges caused by excessive memory use and device slowdowns that developers have experienced. The API, Storefront, and Admin applications can now be run independently, freeing up memory and improving performance.
+The CLI is the quickest and easiest way to develop on Open Commerce. It allows you to create and work with API, Admin, and Storefront projects all via the command line.
 
 ## Prerequisites 
 ---
@@ -81,6 +81,8 @@ now you can run:
 reaction develop api
 ```
  This plugin will now be loaded the next time you start Open Commerce.
+
+ ### Congratulations!! You're ready to start developing with Open Commerce 
 
 ## Add the Admin/Storefront 
 ---
@@ -190,7 +192,7 @@ If you forget to sign your commits, the DCO bot will remind you and give you det
 
 ## License
 ---
-Copyright 2022 Reaction Commerce
+Copyright 2022
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
