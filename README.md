@@ -7,7 +7,7 @@
 
 ## Overview
 ---
-The Open Commerce CLI has been created to optimize speed and simplicity, where even developers who are new to Open Commerce, can now start developing with a few simple commands. Our goal with this tool is to address the challenges caused by excessive memory use and device slowdowns that developers have experienced. The API, Storefront, and Admin applications can now be run independently, freeing up memory and improving performance.
+The Open Commerce CLI has been created to optimize speed and simplicity, where even developers who are new to Open Commerce can now start developing with a few simple commands. Our goal with this tool is to address the challenges caused by excessive memory use and device slowdowns that developers have experienced. The API, Storefront, and Admin applications can now be run independently, freeing up memory and improving performance.
 
 ## Prerequisites 
 ---
@@ -27,21 +27,13 @@ First install the cli by running:
 ```
 npm install -g @reactioncommerce/reaction-cli
 ```
-After this, select the cli directory using: 
 
-```
-cd cli
-```
-Then: 
-
-```
- npm install -g
-```
 You can test to see if it has worked here by running: 
 
 ```
-Reaction help
+reaction help
 ```
+You should see the help text showing. 
 
 ## Creating a project
 ---
@@ -80,6 +72,11 @@ cd <your-plugin-name>
 ```
 npm install 
 ```
+You now need to change back up to the root:
+```
+cd ../../
+```
+now you can run:
 ```
 reaction develop api
 ```
@@ -109,7 +106,7 @@ and you can start the admin project by running:
 ```
 reaction develop admin
 ```
-For more information about developing the admin you can go to Mailchimp Open Commerce Documentation
+For more information about developing the admin you can go to [Mailchimp Open Commerce Documentation](https://mailchimp.com/developer/open-commerce/)
 
 ## Adding a Storefront
 To add the example storefront project so you can browse your installation just run:
@@ -131,7 +128,7 @@ reaction develop storefront
 The storefront will be available on port https//localhost:4000
 
  ## Other Commands
-
+---
 - For a full list of commands run:
 ```
 reaction help
@@ -160,21 +157,23 @@ This project sends back anonymous data to our analytics provider so we can under
 If you want to see what data is being sent you can set the environment variable: 
 Run:
 ```
-reaction telemetry on
-```
-```
 export SHOW_VERBOSE_TELEMETRY_DATA=1
 ```
 ```
 reaction create-project api myserver-2
 ```
-Once you are done, you can turn it off by running:
+
+If you want to turn the telemtry data off indeffinitely you can run:
 ```
 reaction telemetry off
 ```
+to turn it back on run: 
+``` 
+reaction telemetry on
+```
 
-### Developer Certificate of Origin
-
+## Developer Certificate of Origin
+---
 We use the [Developer Certificate of Origin (DCO)](https://developercertificate.org/) in lieu of a Contributor License Agreement for all contributions to Reaction Commerce open source projects. We request that contributors agree to the terms of the DCO and indicate that agreement by signing all commits made to Reaction Commerce projects by adding a line with your name and email address to every Git commit message contributed:
 
 ```
@@ -190,8 +189,8 @@ We use the [Probot DCO GitHub app](https://github.com/apps/dco) to check for DCO
 If you forget to sign your commits, the DCO bot will remind you and give you detailed instructions for how to amend your commits to add a signature.
 
 ## License
-
-Copyright 2019 Reaction Commerce
+---
+Copyright 2022 Reaction Commerce
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
