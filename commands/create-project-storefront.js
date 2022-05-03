@@ -1,6 +1,9 @@
+import fs from "fs";
+import { writeFile } from "fs/promises";
 import simpleGit from "simple-git";
 import { copy } from "fs-extra";
 import Logger from "../utils/logger.js";
+import updatePackageJson from "../utils/updatePackageProjectType.js";
 
 
 /**
@@ -26,6 +29,9 @@ export default async function createProjectStorefront(projectName, options) {
     Logger.error(error);
   }
   await copy(`${projectName}/.env.example`, `${projectName}/.env`);
+  const currentPackageJson = fs.readFileSync(`${projectName}/package.json`, { encoding: "utf8" });
+  const updatedPackageJson = updatePackageJson(currentPackageJson, 'storefront', projectName);
+  await writeFile(`${projectName}/package.json`, updatedPackageJson);
   Logger.success("Storefront project created. You can change to this directory and run `yarn install`");
   return true;
 }

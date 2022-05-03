@@ -42,6 +42,7 @@ async function updatePackageJson(packageJson, projectName) {
   packageData.scripts = newScripts;
   packageData.name = projectName;
   packageData.version = "1.0.0";
+  packageData.reactionProjectType = `api-${projectName}`;
   delete packageData.release;
   delete packageData.homepage;
   delete packageData.url;

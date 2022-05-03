@@ -5,6 +5,7 @@ import { copy } from "fs-extra";
 import { parse, stringify } from "envfile";
 import Logger from "../utils/logger.js";
 import installMeteorIfMissing from "../utils/installMeteorIfMissing.js";
+import updatePackageJson from "../utils/updatePackageProjectType.js";
 
 /**
  * @summary update env file with correct mongo information
@@ -53,6 +54,9 @@ export default async function createProjectAdmin(projectName, options) {
   const dotEnv = fs.readFileSync(`${projectName}/.env.example`, { encoding: "utf8" });
   const updatedDotEnv = updateEnv(dotEnv);
   await writeFile(`${projectName}/.env`, updatedDotEnv);
+  const currentPackageJson = fs.readFileSync(`${projectName}/package.json`, { encoding: "utf8" });
+  const updatedPackageJson = updatePackageJson(currentPackageJson, 'admin', projectName);
+  await writeFile(`${projectName}/package.json`, updatedPackageJson);
   Logger.success("Admin project created. You can change to this directory and run `npm install`");
   return true;
 }
