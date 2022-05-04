@@ -25,7 +25,7 @@ async function getProjectType() {
   Logger.info("Getting project type");
   const packageJson = fs.readFileSync("package.json", { encoding: "utf8", flag: "r" });
   const packageJsonData = JSON.parse(packageJson);
-  const projectType = packageJsonData.projectType;
+  const { projectType } = packageJsonData;
 
   if (!projectType || projectType === "") {
     Logger.error("No project type found in package.json");
