@@ -1,9 +1,9 @@
 import fs from "fs";
+import Logger from "../utils/logger.js";
 import checkDependencies from "../utils/checkDependencies.js";
 import developStorefront from "./develop-storefront.js";
 import developAdmin from "./develop-admin.js";
 import developApi from "./develop-api.js";
-import Logger from "../utils/logger.js";
 
 const functionMap = {
   api: developApi,
@@ -15,13 +15,13 @@ const extraDependencyMap = {
   storefront: ["yarn"]
 };
 
-const validProjectTypes = ['api', 'admin-meteor', 'storefront-example'];
+const validProjectTypes = ["api", "admin-meteor", "storefront-example"];
 
 /**
  * @summary check if reactionProjectType exists, if not return empty string
  * @returns {String} - The project type
  */
- async function getProjectType() {
+async function getProjectType() {
   Logger.info("Getting project type");
   const packageJson = fs.readFileSync("package.json", { encoding: "utf8", flag: "r" });
   const packageJsonData = JSON.parse(packageJson);
@@ -51,7 +51,7 @@ const validProjectTypes = ['api', 'admin-meteor', 'storefront-example'];
       Logger.error("No valid project type found in package.json");
       return "";
   }
- }
+}
 
 /**
  * @summary Run api in development mode
