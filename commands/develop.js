@@ -18,14 +18,14 @@ const extraDependencyMap = {
 const validProjectTypes = ["api", "admin-meteor", "storefront-example"];
 
 /**
- * @summary check if reactionProjectType exists, if not return empty string
+ * @summary check if projectType exists, if not return empty string
  * @returns {String} - The project type
  */
 async function getProjectType() {
   Logger.info("Getting project type");
   const packageJson = fs.readFileSync("package.json", { encoding: "utf8", flag: "r" });
   const packageJsonData = JSON.parse(packageJson);
-  const projectType = packageJsonData.reactionProjectType;
+  const projectType = packageJsonData.projectType;
 
   if (!projectType || projectType === "") {
     Logger.error("No project type found in package.json");
