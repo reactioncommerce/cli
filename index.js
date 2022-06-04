@@ -14,7 +14,7 @@ program.version(pkg.version);
 
 program
   .command("create-project")
-  .description("Create a new Open Commerce project of one of the three types")
+  .description("Create a new Open Commerce project of one of several types")
   .addArgument(new commander.Argument("<type>", "which project type to create").choices(["api", "storefront", "admin", "demo"]))
   .argument("<name>", "what to name the project")
   // .option("--populate")
@@ -26,8 +26,8 @@ program
 
 program
   .command("create-plugin")
-  .description("Create a new plugin based on the template for an API project")
-  .addArgument(new commander.Argument("<type>", "which project type to create").choices(["api", "admin"]))
+  .description("Create a new plugin based on the template for a project type. To create an API plugin, you must be in an API project directory.")
+  .addArgument(new commander.Argument("<type>", "which project type to create").choices(["api"]))
   .argument("<name>", "what to name the plugin")
   .action((type, name, options) => {
     commands.createPlugin(type, name, options);
@@ -35,7 +35,7 @@ program
 
 program
   .command("develop")
-  .description("Run a project in locally in development mode")
+  .description("Run a project locally in development mode")
   .addArgument(new commander.Argument("[type]", "which project type to develop on")
     .choices(["api", "storefront", "admin"]))
   .option("--no-debug")
