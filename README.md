@@ -1,7 +1,7 @@
 # Open Commerce CLI
 
 
-> Note: Our new CLI is in its very early stages. If you find any issues please reports them [here.](https://github.com/reactioncommerce/cli/issues)
+> Note: Our new CLI is in its very early stages. If you find any issues please report them [here.](https://github.com/reactioncommerce/cli/issues)
 
 
 
@@ -20,9 +20,36 @@ Before you can use the Open Commerce CLI, ensure you have all the base requireme
 - [Docker Compose](https://docs.docker.com/compose/)
 
 ## Installation 
----
+
 Before you can use the Open Commerce CLI you need to install the command line tool: 
 
+### From a Cloned repo
+
+First clone the repo locally (substitute <my-directory> with whatever directory name you want to use)
+
+```bash
+git clone git@github.com:reactioncommerce/cli.git <my-directory>
+```
+
+then cd into the directory you just created
+```bash
+cd <my-directory>
+```
+
+Then run npm install inside the CLI directory
+
+```bash
+npm install
+```
+
+Then install the CLI globally (this may require `sudo` on some systems):
+
+```bash
+npm install -g
+```
+
+
+### From NPM (Currently not available)
 First install the cli by running: 
 ```
 npm install -g @reactioncommerce/reaction-cli
@@ -55,6 +82,14 @@ Finaly run:
 ```
 reaction develop api
   ```
+  
+  Note: Optionally, from within the project-directory you may issue the above command without mentioning the project type and the CLI would check your package.json for the "projectType" and pick it up from there. This expects that the project itself was built using the latest version of the CLI as explained in the above steps.
+
+  Example, instead of the above command, you may skip mentioning 'api' and just run: 
+  ```
+  reaction develop
+  ```
+
   This will start the Open Commerce GraphQL server and Mongo Server. Press Ctrl+C to stop.
 
 - A sample custom plugin has been installed, and you should see its output in the logs. (Your Sample Plugin)
@@ -78,7 +113,7 @@ cd ../../
 ```
 now you can run:
 ```
-reaction develop api
+reaction develop
 ```
  This plugin will now be loaded the next time you start Open Commerce.
 
@@ -106,7 +141,7 @@ npm install
 ```
 and you can start the admin project by running:
 ```
-reaction develop admin
+reaction develop
 ```
 For more information about developing the admin you can go to [Mailchimp Open Commerce Documentation](https://mailchimp.com/developer/open-commerce/)
 
@@ -125,7 +160,7 @@ npm install
 ```
 and then:
 ```
-reaction develop storefront
+reaction develop
 ```
 The storefront will be available on port https//localhost:4000
 
