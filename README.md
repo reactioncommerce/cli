@@ -82,6 +82,13 @@ Finaly run:
 ```
 reaction develop api
   ```
+  
+  Note: Optionally, from within the project-directory you may issue the above command without mentioning the project type and the CLI would check your package.json for the "projectType" and pick it up from there.
+  Example, instead of the above command, you may skip mentioning 'api' and just run: 
+  ```
+  reaction develop
+  ```
+
   This will start the Open Commerce GraphQL server and Mongo Server. Press Ctrl+C to stop.
 
 - A sample custom plugin has been installed, and you should see its output in the logs. (Your Sample Plugin)
@@ -105,7 +112,7 @@ cd ../../
 ```
 now you can run:
 ```
-reaction develop api
+reaction develop
 ```
  This plugin will now be loaded the next time you start Open Commerce.
 
@@ -133,7 +140,7 @@ npm install
 ```
 and you can start the admin project by running:
 ```
-reaction develop admin
+reaction develop
 ```
 For more information about developing the admin you can go to [Mailchimp Open Commerce Documentation](https://mailchimp.com/developer/open-commerce/)
 
@@ -152,7 +159,7 @@ npm install
 ```
 and then:
 ```
-reaction develop storefront
+reaction develop
 ```
 The storefront will be available on port https//localhost:4000
 
