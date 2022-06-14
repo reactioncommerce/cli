@@ -1,7 +1,7 @@
 # Open Commerce CLI
 
 
-> Note: Our new CLI is in its very early stages. If you find any issues please reports them [here.](https://github.com/reactioncommerce/cli/issues)
+> Note: Our new CLI is in its very early stages. If you find any issues please report them [here.](https://github.com/reactioncommerce/cli/issues)
 
 
 
@@ -20,9 +20,36 @@ Before you can use the Open Commerce CLI, ensure you have all the base requireme
 - [Docker Compose](https://docs.docker.com/compose/)
 
 ## Installation 
----
+
 Before you can use the Open Commerce CLI you need to install the command line tool: 
 
+### From a Cloned repo
+
+First clone the repo locally (substitute <my-directory> with whatever directory name you want to use)
+
+```bash
+git clone git@github.com:reactioncommerce/cli.git <my-directory>
+```
+
+then cd into the directory you just created
+```bash
+cd <my-directory>
+```
+
+Then run npm install inside the CLI directory
+
+```bash
+npm install
+```
+
+Then install the CLI globally (this may require `sudo` on some systems):
+
+```bash
+npm install -g
+```
+
+
+### From NPM (Currently not available)
 First install the cli by running: 
 ```
 npm install -g @reactioncommerce/reaction-cli
