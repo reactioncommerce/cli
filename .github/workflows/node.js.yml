@@ -41,7 +41,7 @@ jobs:
           node-version: 14
           registry-url: https://registry.npmjs.org/
       - run: npm ci
-      - run: npx semantic-release --dry-run
+      - run: npx semantic-release
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
           GITHUB_TOKEN: ${{ secrets.GH_PUBLISHING_TOKEN }}
