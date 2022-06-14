@@ -83,7 +83,7 @@ Finaly run:
 reaction develop api
   ```
   
-  Note: Optionally, from within the project-directory you may issue the above command without mentioning the project type and the CLI would check your package.json for the "projectType" and pick it up from there. This expects that the project itself was built using thelatest version of CLI as explained in the above steps.
+  Note: Optionally, from within the project-directory you may issue the above command without mentioning the project type and the CLI would check your package.json for the "projectType" and pick it up from there. This expects that the project itself was built using the latest version of the CLI as explained in the above steps.
 
   Example, instead of the above command, you may skip mentioning 'api' and just run: 
   ```
