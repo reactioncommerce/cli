@@ -156,7 +156,7 @@ export default async function update(options) {
   });
 
   Logger.info("Update your package.json file");
-  await fs.writeFile(PACKAGE_JSON_PATH, JSON.stringify(updatedPackageJson));
+  await fs.writeFile(PACKAGE_JSON_PATH, JSON.stringify(updatedPackageJson, null, "\t"));
 
   Logger.info("Update your plugins");
   execSync("npm install", { stdio: "inherit" });
