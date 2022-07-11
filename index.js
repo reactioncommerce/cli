@@ -52,4 +52,12 @@ program
     commands.telemetry(flag);
   });
 
+program
+  .command("update")
+  .description("Update API plugins")
+  .option("--all", "Update all outdated plugins")
+  .action((options) => {
+    commands.update(options);
+  });
+
 program.parse(process.argv);

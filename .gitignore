@@ -1,5 +1,7 @@
 .env
+.vscode
 node_modules
 mydir
 myadmin
 mystore
+myapi
