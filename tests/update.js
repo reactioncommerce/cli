@@ -52,7 +52,7 @@ describe("The getLocalPackageJson function", () => {
   });
 
   it("should return the null when parse error", async () => {
-    const invalidPackageJson = `{ "name": "test }`;
+    const invalidPackageJson = "{ \"name\": \"test }";
     sinon.stub(fsPromise, "readFile").returns(invalidPackageJson);
     const result = await getLocalPackageJson().catch((error) => error);
     // eslint-disable-next-line jest/valid-expect

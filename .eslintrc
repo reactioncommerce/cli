@@ -479,8 +479,7 @@
     "error",
     "double",
     {
-      "avoidEscape": true,
-      "allowTemplateLiterals": true
+      "avoidEscape": true
     }
   ],
     "radix": "error",
