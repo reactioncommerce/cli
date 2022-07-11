@@ -9,11 +9,11 @@ import createProcess from "./createProcess.js";
  * @returns {Promise<Array<String>>} - The console results of the process
  */
 export default function execute(processPath, args = [], opts = {}) {
-  const { env = null, cwd = null, agnoreError = false } = opts;
+  const { env = null, cwd = null, ignoreError = false } = opts;
   const childProcess = createProcess(processPath, args, env, cwd);
   childProcess.stdin.setEncoding("utf-8");
   const promise = new Promise((resolve, reject) => {
-    if (agnoreError === false) {
+    if (ignoreError === false) {
       childProcess.stderr.once("data", (err) => {
         reject(err.toString());
       });

@@ -29,7 +29,7 @@ describe("Update command", () => {
   });
 
   it("should print the correct output", async () => {
-    const response = await execute("../index.js", ["update", "--all"], { cwd: "./myapi", agnoreError: true });
+    const response = await execute("../index.js", ["update", "--all"], { cwd: "./myapi", ignoreError: true });
     const responseLines = response.trim().split(EOL);
     // eslint-disable-next-line jest/valid-expect
     expect(responseLines[responseLines.length - 1]).to.equal("reaction-cli: The plugins has been updated successfully");
