@@ -40,7 +40,7 @@
     "meant": "^2.0.1",
     "node-fetch": "^3.2.6",
     "prompts": "^2.4.2",
-    "public-ip": "^5.0.0",
+    "public-ip": "^6.0.1",
     "rimraf": "^3.0.2",
     "simple-git": "^2.48.0",
     "sinon": "^14.0.0",
