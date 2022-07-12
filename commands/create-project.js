@@ -2,6 +2,7 @@ import Logger from "../utils/logger.js";
 import checkDependencies from "../utils/checkDependencies.js";
 import createProjectApi from "./create-project-api.js";
 import createProjectAdmin from "./create-project-admin.js";
+import createProjectKinetic from "./create-project-kinetic.js";
 import createProjectStorefront from "./create-project-storefront.js";
 import createProjectDemo from "./create-project-demo.js";
 
@@ -9,11 +10,13 @@ const methodMap = {
   api: createProjectApi,
   admin: createProjectAdmin,
   storefront: createProjectStorefront,
+  kinetic: createProjectKinetic,
   demo: createProjectDemo
 };
 
 const extraDependencyMap = {
-  storefront: ["yarn"]
+  storefront: ["yarn"],
+  kinetic: ["pnpm"]
 };
 
 /**

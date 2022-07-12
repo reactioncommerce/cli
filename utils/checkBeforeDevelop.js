@@ -18,12 +18,18 @@ async function checkForApi() {
  */
 export default async function checkBeforeDevelop(type = "api") {
   if (!await pathExists("node_modules")) {
-    if (type === "storefront") {
-      Logger.error("It looks like you have not run `yarn install` in this directory");
-      Logger.error("Please run `yarn install` and try again");
-    } else {
-      Logger.error("It looks like you have not run `npm install` in this directory");
-      Logger.error("Please run `npm install` and try again");
+    switch (type) {
+      case "storefront":
+        Logger.error("It looks like you have not run `yarn install` in this directory");
+        Logger.error("Please run `yarn install` and try again");
+        break;
+      case "kinetic":
+        Logger.error("It looks like you have not run `pnpm install` in this directory");
+        Logger.error("Please run `pnpm install` and try again");
+        break;
+      default:
+        Logger.error("It looks like you have not run `npm install` in this directory");
+        Logger.error("Please run `npm install` and try again");
     }
     return false;
   }

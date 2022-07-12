@@ -3,19 +3,22 @@ import Logger from "../utils/logger.js";
 import checkDependencies from "../utils/checkDependencies.js";
 import developStorefront from "./develop-storefront.js";
 import developAdmin from "./develop-admin.js";
+import developKinetic from "./develop-kinetic.js";
 import developApi from "./develop-api.js";
 
 const functionMap = {
   api: developApi,
   admin: developAdmin,
+  kinetic: developKinetic,
   storefront: developStorefront
 };
 
 const extraDependencyMap = {
-  storefront: ["yarn"]
+  storefront: ["yarn"],
+  kinetic: ["pnpm"]
 };
 
-const validProjectTypes = ["api", "admin-meteor", "storefront-example"];
+const validProjectTypes = ["api", "admin-meteor", "storefront-example", "kinetic"];
 
 /**
  * @summary check if projectType exists, if not return empty string
@@ -44,6 +47,9 @@ async function getProjectType() {
     case "admin-meteor":
       Logger.info("Found project type: admin-meteor");
       return "admin";
+    case "kinetic":
+      Logger.info("Found project type: kinetic");
+      return "kinetic";
     case "storefront-example":
       Logger.info("Found project type: storefront-example");
       return "storefront";
