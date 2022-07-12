@@ -1,7 +1,7 @@
 import fs from "fs/promises";
 import { execSync } from "child_process";
 import inquirer from "inquirer";
-import compareVerions from "compare-versions";
+import compareVersions from "compare-versions";
 
 import Logger from "../utils/logger.js";
 import wget from "../utils/wget.js";
@@ -115,7 +115,7 @@ export default async function update(options) {
       name,
       version,
       remoteVersion: remoteDependencies[name],
-      outdated: compareVerions.compare(cleanVersion(remoteDependencies[name]), cleanVersion(version), ">")
+      outdated: compareVersions.compare(cleanVersion(remoteDependencies[name]), cleanVersion(version), ">")
     }))
     .filter(({ outdated }) => outdated);
 
@@ -131,7 +131,7 @@ export default async function update(options) {
     {
       type: "list",
       name: "kind",
-      message: "Do want to update your outdate plugins?",
+      message: "Do want to update your outdated plugins?",
       choices: ["Update all outdated plugins", "Choose a part"]
     },
     {
