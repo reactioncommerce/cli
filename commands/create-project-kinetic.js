@@ -45,7 +45,7 @@ export default async function createProjectKinetic(projectName) {
   const git = simpleGit(gitOptions);
   Logger.info("Cloning project");
   try {
-    await git.clone("https://github.com/reactioncommerce/kinetic.git", projectName);
+    await git.clone("git@github.com:reactioncommerce/kinetic.git", projectName);
   } catch (error) {
     Logger.error(error);
     return false;
