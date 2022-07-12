@@ -119,7 +119,7 @@ reaction develop
 
  ### Congratulations!! You're ready to start developing with Open Commerce 
 
-## Add the Admin/Storefront 
+## Add the Admin/Kinetic/Storefront 
 ---
 Open Commerce includes an Admin panel for managing your system plus an example storefront implementation so you can see how you would go about building your own.
 
@@ -144,6 +144,33 @@ and you can start the admin project by running:
 reaction develop
 ```
 For more information about developing the admin you can go to [Mailchimp Open Commerce Documentation](https://mailchimp.com/developer/open-commerce/)
+
+## Adding the Kinetic
+The Kinetic project uses pnpm as package manager so ensure you have this installed in your local development.
+
+Using npm to install:
+```
+npm install -g pnpm
+```
+To add the kinetic project you can run:
+```
+reaction create-project kinetic <your-kinetic-name> 
+```
+and a `your-kinetic-name` directory will be created in the new directory. 
+
+Change to that directory by running:
+```
+ cd <your-kinetic-name> 
+```
+Then run:
+```
+pnpm install
+```
+and you can start the kinetic project by running:
+```
+reaction develop
+```
+The kinetic will be available on port https//localhost:3001
 
 ## Adding a Storefront
 To add the example storefront project so you can browse your installation just run:

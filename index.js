@@ -15,7 +15,7 @@ program.version(pkg.version);
 program
   .command("create-project")
   .description("Create a new Open Commerce project of one of several types")
-  .addArgument(new commander.Argument("<type>", "which project type to create").choices(["api", "storefront", "admin", "demo"]))
+  .addArgument(new commander.Argument("<type>", "which project type to create").choices(["api", "storefront", "admin", "kinetic", "demo"]))
   .argument("<name>", "what to name the project")
   // .option("--populate")
   .option("--skip-meteor-install", "Skip Meteor install when creating admin project")
@@ -37,7 +37,7 @@ program
   .command("develop")
   .description("Run a project locally in development mode")
   .addArgument(new commander.Argument("[type]", "which project type to develop on")
-    .choices(["api", "storefront", "admin"]))
+    .choices(["api", "storefront", "admin", "kinetic"]))
   .option("--no-debug")
   .option("--no-mongo-shutdown", "don't shut down mongo on abort")
   .action((type, options) => {
