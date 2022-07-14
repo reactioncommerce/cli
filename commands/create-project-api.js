@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "fs/promises";
+import { mkdir, writeFile, readFile } from "fs/promises";
 import { parse, stringify } from "envfile";
 import simpleGit from "simple-git";
 import wget from "../utils/wget.js";
@@ -8,6 +8,20 @@ import Logger from "../utils/logger.js";
 
 
 const reactionRepoRoot = "https://raw.githubusercontent.com/reactioncommerce/reaction/trunk";
+
+/**
+ * @summary create the git instance
+ * @param {String} projectName - The name of the directory to create
+ * @returns {Object} - the git instance
+ */
+function getGitInstance(projectName) {
+  const gitOptions = {
+    baseDir: `${process.cwd()}/${projectName}`,
+    binary: "git",
+    maxConcurrentProcesses: 6
+  };
+  return simpleGit(gitOptions);
+}
 
 /**
  * @summary create project directory
@@ -68,11 +82,17 @@ async function getFileFromCore(fileName) {
 /**
  * @summary update dotenv file to point to local mongo
  * @param {String} envData - file extracted from the reaction repo
+ * @param {Object} options - Any options for project creation
  * @returns {String} updated env file
  */
-function updateEnv(envData) {
+function updateEnv(envData, options = {}) {
   const env = parse(envData);
   env.MONGO_URL = "mongodb://localhost:27017/reaction";
+
+  if (options.populate) {
+    env.LOAD_SAMPLE_DATA = true;
+  }
+
   const updatedEnv = stringify(env);
   return updatedEnv;
 }
@@ -80,9 +100,10 @@ function updateEnv(envData) {
 /**
  * @summary get files directory from core repo
  * @param {String} projectName - The name of the project we are creating
+ * @param {Object} options - Any options for project creation
  * @returns {Promise<Boolean>} True if success
  */
-async function getFilesFromCore(projectName) {
+async function getFilesFromCore(projectName, options) {
   // get files directly from repo so it's always up-to-date
   const packageJson = await getFileFromCore("package.json");
   const updatedPackageJson = await updatePackageJson(packageJson, projectName);
@@ -104,7 +125,7 @@ async function getFilesFromCore(projectName) {
   await writeFile(`${projectName}/.nvmrc`, nvmrc);
 
   const dotenv = await getFileFromCore(".env.example");
-  const updatedDotEnv = updateEnv(dotenv);
+  const updatedDotEnv = updateEnv(dotenv, options);
   await writeFile(`${projectName}/.env`, updatedDotEnv);
   return true;
 }
@@ -116,16 +137,37 @@ async function getFilesFromCore(projectName) {
  * @returns {Promise<Boolean>} true if success
  */
 async function gitInitDirectory(projectName) {
-  const gitOptions = {
-    baseDir: `${process.cwd()}/${projectName}`,
-    binary: "git",
-    maxConcurrentProcesses: 6
-  };
-  const git = simpleGit(gitOptions);
+  const git = getGitInstance(projectName);
   try {
     await git.init();
   } catch (error) {
     Logger.error(error);
+  }
+}
+
+/**
+ * @summary add the sample data plugin to project
+ * @param {String} projectName name of the project to create
+ * @param {String} pluginName The plugin name
+ * @returns {Promise<boolean>} true for success
+ */
+async function addSampleDataPlugin(projectName) {
+  const git = getGitInstance(projectName);
+  try {
+    await git.clone("git@github.com:reactioncommerce/api-plugin-sample-data.git", "custom-packages/api-plugin-sample-data");
+
+    const pluginJsonPath = `${projectName}/plugins.json`;
+    const plugins = JSON.parse(await readFile(pluginJsonPath));
+    plugins.sampleData = "./custom-packages/api-plugin-sample-data/index.js";
+
+    await writeFile(pluginJsonPath, JSON.stringify(plugins, null, "\t"));
+
+    Logger.info("Added the sample data plugin successfully.");
+    return true;
+  } catch (error) {
+    Logger.error(error);
+    Logger.warn("Can't add the sample data plugin by error. Please add it manual.");
+    return false;
   }
 }
 
@@ -148,10 +190,14 @@ export default async function createProjectApi(projectName, options) {
   await getFilesFromRepo("/templates/api-project/", projectName);
 
   // copy files directly from core that we want to be current
-  await getFilesFromCore(projectName);
+  await getFilesFromCore(projectName, options);
 
   // git init the new project
   await gitInitDirectory(projectName);
+
+  if (options.populate) {
+    await addSampleDataPlugin(projectName);
+  }
 
   Logger.success("Project creation complete. Change to your directory and run `npm install`");
 }
