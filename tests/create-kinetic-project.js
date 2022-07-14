@@ -21,6 +21,8 @@ beforeEach(async () => {
 describe("The create-project-kinetic command", () => {
   it("should print the correct output", async () => {
     const response = await execute("./index.js", ["create-project", "kinetic", "mykinetic"]);
+    // eslint-disable-next-line no-console
+    console.log(response);
     const responseLines = response.trim().split(EOL);
     // eslint-disable-next-line jest/valid-expect
     expect(responseLines[0]).to.equal('reaction-cli: Creating kinetic: {"projectName":"mykinetic"}');
