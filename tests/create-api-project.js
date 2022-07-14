@@ -33,6 +33,8 @@ describe("The create-project-api command", () => {
   it("should print the correct output when user run with --populate option", async () => {
     const response = await execute("./index.js", ["create-project", "api", "myshop", "--populate"]);
     const responseLines = response.trim().split(EOL);
+    // eslint-disable-next-line no-console
+    console.log(response);
     expect(responseLines[1]).equal("reaction-cli: Added the sample data plugin successfully.");
     expect(responseLines[2]).equal("reaction-cli: Project creation complete. Change to your directory and run `npm install`");
 
