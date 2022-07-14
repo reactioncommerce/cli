@@ -10,20 +10,6 @@ import Logger from "../utils/logger.js";
 const reactionRepoRoot = "https://raw.githubusercontent.com/reactioncommerce/reaction/trunk";
 
 /**
- * @summary create the git instance
- * @param {String} projectName - The name of the directory to create
- * @returns {Object} - the git instance
- */
-function getGitInstance(projectName) {
-  const gitOptions = {
-    baseDir: `${process.cwd()}/${projectName}`,
-    binary: "git",
-    maxConcurrentProcesses: 6
-  };
-  return simpleGit(gitOptions);
-}
-
-/**
  * @summary create project directory
  * @param {String} projectName - The name of the directory to create
  * @returns {Promise<Boolean>} true if success
@@ -130,6 +116,19 @@ async function getFilesFromCore(projectName, options) {
   return true;
 }
 
+/**
+ * @summary create the git instance
+ * @param {String} projectName - The name of the directory to create
+ * @returns {Object} - the git instance
+ */
+function getGit(projectName) {
+  const gitOptions = {
+    baseDir: `${process.cwd()}/${projectName}`,
+    binary: "git",
+    maxConcurrentProcesses: 6
+  };
+  return simpleGit(gitOptions);
+}
 
 /**
  * @summary git init the newly created project
@@ -137,9 +136,8 @@ async function getFilesFromCore(projectName, options) {
  * @returns {Promise<Boolean>} true if success
  */
 async function gitInitDirectory(projectName) {
-  const git = getGitInstance(projectName);
   try {
-    await git.init();
+    await getGit(projectName).init();
   } catch (error) {
     Logger.error(error);
   }
@@ -152,9 +150,8 @@ async function gitInitDirectory(projectName) {
  * @returns {Promise<boolean>} true for success
  */
 async function addSampleDataPlugin(projectName) {
-  const git = getGitInstance(projectName);
   try {
-    await git.clone("git@github.com:reactioncommerce/api-plugin-sample-data.git", "custom-packages/api-plugin-sample-data");
+    await getGit(projectName).clone("git@github.com:reactioncommerce/api-plugin-sample-data.git", "./custom-packages/api-plugin-sample-data");
 
     const pluginJsonPath = `${projectName}/plugins.json`;
     const plugins = JSON.parse(await readFile(pluginJsonPath));
