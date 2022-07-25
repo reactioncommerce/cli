@@ -63,7 +63,6 @@ reaction help
 You should see the help text showing. 
 
 ## Creating a project
----
 
 You can create your Open Commerce project by running:
 ```
@@ -120,7 +119,7 @@ reaction develop
  ### Congratulations!! You're ready to start developing with Open Commerce 
 
 ## Add the Admin/Storefront 
----
+
 Open Commerce includes an Admin panel for managing your system plus an example storefront implementation so you can see how you would go about building your own.
 
 ## Adding the Admin
@@ -180,8 +179,20 @@ To quickly update all your plugins:
 reaction update --all
 ```
 Your outdated plugins will be updated to the latest version.
- ## Other Commands
----
+
+## Clone plugins
+
+To clone all official Open Commerce plugins locally run:
+```
+reaction clone-api-plugins
+``` 
+If you want to manually clone a specific plugins, use the `-m` flag:
+```
+reaction clone-api-plugins -m
+```
+
+## Other Commands
+
 - For a full list of commands run:
 ```
 reaction help
@@ -201,11 +212,11 @@ cd <your-demo-name>
 Check that the storefront (localhost:4000), graphQL server (localhost:3000) and admin (localhost:4080) are all running (this might take a minute or so).
 
 ## Contribution
----
+
 If you find any issues please reports them [here.](https://github.com/reactioncommerce/cli/issues)
 
 ## Telemetry 
----
+
 This project sends back anonymous data to our analytics provider so we can understand how users are using the product.
 If you want to see what data is being sent you can set the environment variable: 
 Run:
@@ -226,7 +237,7 @@ reaction telemetry on
 ```
 
 ## Developer Certificate of Origin
----
+
 We use the [Developer Certificate of Origin (DCO)](https://developercertificate.org/) in lieu of a Contributor License Agreement for all contributions to Reaction Commerce open source projects. We request that contributors agree to the terms of the DCO and indicate that agreement by signing all commits made to Reaction Commerce projects by adding a line with your name and email address to every Git commit message contributed:
 
 ```
@@ -242,7 +253,7 @@ We use the [Probot DCO GitHub app](https://github.com/apps/dco) to check for DCO
 If you forget to sign your commits, the DCO bot will remind you and give you detailed instructions for how to amend your commits to add a signature.
 
 ## License
----
+
 Copyright 2022
 
 Licensed under the Apache License, Version 2.0 (the "License");
