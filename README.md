@@ -191,6 +191,22 @@ reaction develop
 ```
 The storefront will be available on port https//localhost:4000
 
+## Update the plugins
+To update the plugins in your project so you can run the below command:
+
+Navigate to your project directory:
+```
+cd <your-api-directory>
+```
+and run the update command:
+```
+reaction update
+```
+To quickly update all your plugins:
+```
+reaction update --all
+```
+Your outdated plugins will be updated to the latest version.
  ## Other Commands
 ---
 - For a full list of commands run:

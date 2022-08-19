@@ -8,6 +8,7 @@ import createPlugin from "./create-plugin.js";
 import develop from "./develop.js";
 import telemetry from "./telemetry.js";
 import build from "./build.js";
+import update from "./update.js";
 
 export default {
   demo: (demoPath) => {
@@ -51,5 +52,12 @@ export default {
     checkForNewVersion();
     telemetry(args);
     track(`telemetry/${args}`, {}, {});
+  },
+  update: (options) => {
+    versionSupportCheck();
+    telemetryCheck();
+    checkForNewVersion();
+    update(options);
+    track(`update/${options}`, {}, {});
   }
 };
