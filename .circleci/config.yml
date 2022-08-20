@@ -42,11 +42,13 @@ jobs:
           keys:
             - 'v1-dependencies-{{ checksum "package.json" }}'
             - v1-dependencies-
-      - run: apt-get update && apt-get install ca-certificates curl gnupg lsb-release -y
-      - run: mkdir -p /etc/apt/keyrings
-      - run: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-      - run: echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-      - run: apt-get update && apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+      - run: apt-get update && apt-get install ca-certificates curl gnupg lsb-release wget -y
+      - run: wget  https://download.docker.com/linux/ubuntu/dists/focal/pool/stable/amd64/docker-ce_20.10.9~3-0~ubuntu-focal_amd64.deb
+      - run: dpkg -i ../docker-ce_20.10.9~3-0~ubuntu-focal_amd64.deb
+#      - run: mkdir -p /etc/apt/keyrings
+#      - run: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+#      - run: echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+#      - run: apt-get update && apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
       - run: npm run test
 workflows:
   version: 2
