@@ -42,6 +42,7 @@ jobs:
           keys:
             - 'v1-dependencies-{{ checksum "package.json" }}'
             - v1-dependencies-
+      - run: apt-get install docker -y
       - run: npm run test
 workflows:
   version: 2
