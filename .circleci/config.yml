@@ -42,7 +42,6 @@ jobs:
           keys:
             - 'v1-dependencies-{{ checksum "package.json" }}'
             - v1-dependencies-
-      - run: docker run -v /var/run/docker.sock:/var/run/docker.sock -ti docker
       - run: npm run test
 workflows:
   version: 2
