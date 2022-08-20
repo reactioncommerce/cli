@@ -59,7 +59,7 @@ workflows:
           context: reaction-publish-semantic-release
           requires:
             - lint
-            - test
+#            - test
           filters:
             branches:
               only: trunk
