@@ -23,6 +23,19 @@ Before you can use the Open Commerce CLI, ensure you have all the base requireme
 
 Before you can use the Open Commerce CLI you need to install the command line tool: 
 
+### From NPM (Suggested method)
+First install the cli by running:
+```
+npm install -g @reactioncommerce/reaction-cli
+```
+
+You can test to see if it has worked here by running:
+
+```
+reaction help
+```
+You should see the help text showing.
+
 ### From a Cloned repo
 
 First clone the repo locally (substitute <my-directory> with whatever directory name you want to use)
@@ -47,20 +60,6 @@ Then install the CLI globally (this may require `sudo` on some systems):
 ```bash
 npm install -g
 ```
-
-
-### From NPM (Currently not available)
-First install the cli by running: 
-```
-npm install -g @reactioncommerce/reaction-cli
-```
-
-You can test to see if it has worked here by running: 
-
-```
-reaction help
-```
-You should see the help text showing. 
 
 ## Creating a project
 ---
