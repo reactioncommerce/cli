@@ -71,14 +71,22 @@ function buildRepoUrlForPlugin(plugin) {
 /**
  * @summary Clones a plugin in the api-plugins directory
  * @param {String} plugin - key of the plugin
- * @return {void}
+ * @return {Promise<void>} - promise that resolves when the plugin is cloned
  */
-function clonePlugin(plugin) {
+async function clonePlugin(plugin) {
   const apiPluginRepoUrl = buildRepoUrlForPlugin(plugin);
 
-  spawn("git", ["clone", apiPluginRepoUrl], {
-    stdio: [process.stdout, process.stderr, process.stdin],
-    cwd: `${process.cwd()}/api-plugins`
+  return new Promise((resolve, reject) => {
+    spawn("git", ["clone", apiPluginRepoUrl], {
+      stdio: [process.stdout, process.stderr, process.stdin],
+      cwd: `${process.cwd()}/api-plugins`
+    })
+      .on("exit", (errorCode) => {
+        if (errorCode === 0) {
+          resolve();
+        }
+        reject("Error cloning plugin");
+      });
   });
 }
 
@@ -88,21 +96,45 @@ function clonePlugin(plugin) {
  * @return {Promise<String[]>} - list of the selected plugins
  */
 async function getManuallySelectedPlugins(allPlugins) {
-  const { plugins } = await inquirer.prompt([
-    {
-      type: "checkbox",
-      message: "Select the plugins you want to clone:",
-      name: "plugins",
-      choices: allPlugins,
-      validate: (ans) => {
-        if (ans.length === 0) {
-          return "You must choose at least one plugin.";
-        }
-        return true;
+  const { plugins } = await inquirer.prompt([{
+    type: "checkbox",
+    message: "Select the plugins you want to clone:",
+    name: "plugins",
+    choices: allPlugins,
+    validate: (ans) => {
+      if (ans.length === 0) {
+        return "You must choose at least one plugin.";
       }
+      return true;
     }
-  ]);
+  }]);
   return plugins;
+}
+
+/**
+ * @summary Get the plugins.json file
+ * @return {Object} - the plugins.json as an object
+ */
+function getPluginsJson() {
+  const pluginsJson = fs.readFileSync(`${process.cwd()}/plugins.json`, "utf8");
+  return JSON.parse(pluginsJson);
+}
+
+/**
+ * @summary Link a local plugin in the plugins.json file
+ * @param {String} plugin - name of the plugin
+ * @return {void}
+ */
+function linkLocalPlugin(plugin) {
+  Logger.info(`Linking local plugin ${plugin} in plugins.json`);
+  const pluginsJson = getPluginsJson();
+  for (const key in pluginsJson) {
+    if (pluginsJson[key] === `@reactioncommerce/${plugin}`) {
+      pluginsJson[key] = `./api-plugins/${plugin}/index.js`;
+      break;
+    }
+  }
+  fs.writeFileSync(`${process.cwd()}/plugins.json`, JSON.stringify(pluginsJson, null, 2));
 }
 
 /**
@@ -110,7 +142,10 @@ async function getManuallySelectedPlugins(allPlugins) {
  * @param {Object} options - Options for cloning api plugins command
  * @returns {Promise<boolean>} - return true if successful
  */
-export default async function cloneApiPlugins({ manualSelect }) {
+export default async function cloneApiPlugins({
+  manualSelect,
+  link
+}) {
   const isApiProject = await isProjectOfType("api");
   if (!isApiProject) {
     return false;
@@ -124,12 +159,20 @@ export default async function cloneApiPlugins({ manualSelect }) {
 
   const pluginsToClone = manuallySelectedPlugins || allPlugins;
 
-  pluginsToClone
-    .forEach((plugin) => {
-      if (!isPluginAlreadyCloned(plugin)) {
-        clonePlugin(plugin);
-      }
-    });
+  const cloneAndLinkPromises = pluginsToClone.map(async (plugin) => {
+    if (!isPluginAlreadyCloned(plugin)) {
+      await clonePlugin(plugin);
+    }
+    if (link) {
+      linkLocalPlugin(plugin);
+    }
+  });
 
+  try {
+    await Promise.all(cloneAndLinkPromises);
+  } catch (error) {
+    Logger.error(error);
+    return false;
+  }
   return true;
 }

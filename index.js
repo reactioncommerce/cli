@@ -16,6 +16,7 @@ program
   .command("clone-api-plugins")
   .description("Clone the official Open Commerce API plugins locally")
   .option("-m, --manual-select", "Select the specific plugins you want to clone")
+  .option("--no-link", "Don't link the local plugins to the api project")
   .action((options) => {
     commands.cloneApiPlugins(options);
   });
