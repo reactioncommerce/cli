@@ -26,7 +26,7 @@ Before you can use the Open Commerce CLI you need to install the command line to
 ### From NPM (Suggested method)
 First install the cli by running:
 ```
-npm install -g @reactioncommerce/reaction-cli
+npm install -g reaction-cli
 ```
 
 You can test to see if it has worked here by running:
