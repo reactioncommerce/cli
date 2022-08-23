@@ -9,6 +9,7 @@ import develop from "./develop.js";
 import telemetry from "./telemetry.js";
 import build from "./build.js";
 import update from "./update.js";
+import cloneApiPlugins from "./clone-api-plugins.js";
 
 export default {
   demo: (demoPath) => {
@@ -31,6 +32,13 @@ export default {
     checkForNewVersion();
     develop(projectType, options);
     track(`develop/${projectType}`, {}, options);
+  },
+  cloneApiPlugins: (options) => {
+    versionSupportCheck();
+    telemetryCheck();
+    checkForNewVersion();
+    cloneApiPlugins(options);
+    track("clone-api-plugins", {}, options);
   },
   createPlugin: (type, pluginName, options) => {
     versionSupportCheck();

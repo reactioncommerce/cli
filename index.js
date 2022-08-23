@@ -13,6 +13,15 @@ const program = new commander.Command();
 program.version(pkg.version);
 
 program
+  .command("clone-api-plugins")
+  .description("Clone the official Open Commerce API plugins locally")
+  .option("-m, --manual-select", "Select the specific plugins you want to clone")
+  .option("--no-link", "Don't link the local plugins to the api project")
+  .action((options) => {
+    commands.cloneApiPlugins(options);
+  });
+
+program
   .command("create-project")
   .description("Create a new Open Commerce project of one of several types")
   .addArgument(new commander.Argument("<type>", "which project type to create").choices(["api", "storefront", "admin", "demo"]))
