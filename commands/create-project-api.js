@@ -7,7 +7,8 @@ import pathExists from "../utils/pathExists.js";
 import Logger from "../utils/logger.js";
 
 
-const reactionRepoRoot = "https://raw.githubusercontent.com/reactioncommerce/reaction/trunk";
+const reactionAppRoot = "https://raw.githubusercontent.com/reactioncommerce/reaction/trunk/apps/reaction";
+const reactionRoot = "https://raw.githubusercontent.com/reactioncommerce/reaction/trunk/";
 
 /**
  * @summary create project directory
@@ -19,6 +20,17 @@ async function makeProject(projectName) {
   // create utils directory
   await mkdir(`${projectName}/utils`);
   await mkdir(`${projectName}/custom-packages`);
+}
+
+/**
+ * @summary fetch the right nodemon from root
+ * @return {Promise<string>} - the nodemon package.json line
+ */
+async function getNodeMonVersionFromRoot() {
+  const rootPackage = await getFileFromCore("package.json", reactionRoot);
+  const packageData = JSON.parse(rootPackage);
+  const nodeMon = packageData.devDependencies.nodemon;
+  return nodeMon;
 }
 
 
@@ -52,16 +64,19 @@ async function updatePackageJson(packageJson, projectName) {
   delete packageData.bugs;
   packageData.main = "./index.js";
   packageData.nodemonConfig.watch.push("custom-packages");
+  const nodemon = await getNodeMonVersionFromRoot();
+  packageData.devDependencies.nodemon = nodemon;
   return JSON.stringify(packageData, null, 2);
 }
 
 /**
  * @summary get a single file via HTTP
  * @param {String} fileName - The file to get
+ * @param {String} rootDir - path to root for file
  * @returns {Promise<string|*>} The contents of the file
  */
-async function getFileFromCore(fileName) {
-  const contents = await wget(`${reactionRepoRoot}/${fileName}`);
+async function getFileFromCore(fileName, rootDir = reactionAppRoot) {
+  const contents = await wget(`${rootDir}/${fileName}`);
   return contents;
 }
 
@@ -100,7 +115,7 @@ async function getFilesFromCore(projectName) {
   const checkNode = await getFileFromCore("src/checkNodeVersion.cjs");
   await writeFile(`${projectName}/utils/checkNodeVersion.cjs`, checkNode);
 
-  const nvmrc = await getFileFromCore(".nvmrc");
+  const nvmrc = await getFileFromCore(".nvmrc", reactionRoot);
   await writeFile(`${projectName}/.nvmrc`, nvmrc);
 
   const dotenv = await getFileFromCore(".env.example");
