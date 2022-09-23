@@ -29,7 +29,7 @@ export const getLocalPackageJson = async () => {
  * @returns {Object} - return the remote dependencies as object
  */
 export const getRemoteDependencies = async () => {
-  const remotePackageJsonUrl = "https://raw.githubusercontent.com/reactioncommerce/reaction/trunk/package.json";
+  const remotePackageJsonUrl = "https://raw.githubusercontent.com/reactioncommerce/reaction/trunk/apps/reaction/package.json";
   try {
     const remotePackageJson = await wget(remotePackageJsonUrl);
     return (JSON.parse(remotePackageJson)).dependencies;
