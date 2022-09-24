@@ -1,14 +1,10 @@
 import { mkdir, writeFile } from "fs/promises";
 import { parse, stringify } from "envfile";
 import simpleGit from "simple-git";
-import wget from "../utils/wget.js";
 import getFilesFromRepo from "../utils/getFilesFromRepo.js";
 import pathExists from "../utils/pathExists.js";
 import Logger from "../utils/logger.js";
-
-
-const reactionAppRoot = "https://raw.githubusercontent.com/reactioncommerce/reaction/trunk/apps/reaction";
-const reactionRoot = "https://raw.githubusercontent.com/reactioncommerce/reaction/trunk/";
+import getFileFromCore, { reactionRoot } from "../utils/getFileFromCore.js";
 
 /**
  * @summary create project directory
@@ -29,8 +25,7 @@ async function makeProject(projectName) {
 async function getNodeMonVersionFromRoot() {
   const rootPackage = await getFileFromCore("package.json", reactionRoot);
   const packageData = JSON.parse(rootPackage);
-  const nodeMon = packageData.devDependencies.nodemon;
-  return nodeMon;
+  return packageData.devDependencies.nodemon;
 }
 
 
@@ -64,20 +59,8 @@ async function updatePackageJson(packageJson, projectName) {
   delete packageData.bugs;
   packageData.main = "./index.js";
   packageData.nodemonConfig.watch.push("custom-packages");
-  const nodemon = await getNodeMonVersionFromRoot();
-  packageData.devDependencies.nodemon = nodemon;
+  packageData.devDependencies.nodemon = await getNodeMonVersionFromRoot();
   return JSON.stringify(packageData, null, 2);
-}
-
-/**
- * @summary get a single file via HTTP
- * @param {String} fileName - The file to get
- * @param {String} rootDir - path to root for file
- * @returns {Promise<string|*>} The contents of the file
- */
-async function getFileFromCore(fileName, rootDir = reactionAppRoot) {
-  const contents = await wget(`${rootDir}/${fileName}`);
-  return contents;
 }
 
 /**
@@ -88,8 +71,7 @@ async function getFileFromCore(fileName, rootDir = reactionAppRoot) {
 function updateEnv(envData) {
   const env = parse(envData);
   env.MONGO_URL = "mongodb://localhost:27017/reaction";
-  const updatedEnv = stringify(env);
-  return updatedEnv;
+  return stringify(env);
 }
 
 /**

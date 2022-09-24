@@ -3,20 +3,19 @@ import fs from "fs";
 import inquirer from "inquirer";
 import isProjectOfType from "../utils/isProjectOfType.js";
 import Logger from "../utils/logger.js";
-import wget from "../utils/wget.js";
+import getFileFromCore from "../utils/getFileFromCore.js";
 
 /**
  * @summary Get and parse local plugins.json file
  * @returns {Object} - return the local plugins.json as object
  */
 async function getRemotePluginsJson() {
-  const remotePackageJsonUrl = "https://raw.githubusercontent.com/reactioncommerce/reaction/trunk/plugins.json";
-  try {
-    const pluginsJson = await wget(remotePackageJsonUrl);
+  const pluginsJson = await getFileFromCore("plugins.json");
 
+  try {
     return JSON.parse(pluginsJson);
   } catch (error) {
-    Logger.error("Unable to get local plugins.json");
+    Logger.error("Unable to parse remote plugins.json");
     Logger.error(error);
     throw error;
   }
