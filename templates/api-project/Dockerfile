@@ -1,4 +1,4 @@
-FROM reactioncommerce/reaction:4.1.5
+FROM reactioncommerce/reaction:4.2.2
 USER root
 RUN npm install -g husky is-ci is-docker
 USER node
