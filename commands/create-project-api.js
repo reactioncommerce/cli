@@ -13,8 +13,8 @@ import getFileFromCore, { reactionRoot } from "../utils/getFileFromCore.js";
  */
 async function makeProject(projectName) {
   await mkdir(projectName);
-  // create utils directory
-  await mkdir(`${projectName}/utils`);
+  // create src directory
+  await mkdir(`${projectName}/src`);
   await mkdir(`${projectName}/custom-packages`);
 }
 
@@ -39,9 +39,9 @@ async function updatePackageJson(packageJson, projectName) {
   const newScripts = {
     "start": "node --experimental-modules --experimental-json-modules ./index.js",
     "start:dev": "npm run check-node-version && NODE_ENV=development NODE_OPTIONS='--experimental-modules --experimental-json-modules' nodemon ./index.js",
-    "inspect": "NODE_ENV=development node --experimental-modules --experimental-json-modules --inspect ./src/index.js",
-    "inspect-brk": "NODE_ENV=development node --experimental-modules --experimental-json-modules --inspect-brk ./src/index.js",
-    "check-node-version": "node ./utils/checkNodeVersion.cjs",
+    "inspect": "NODE_ENV=development node --experimental-modules --experimental-json-modules --inspect ../index.js",
+    "inspect-brk": "NODE_ENV=development node --experimental-modules --experimental-json-modules --inspect-brk ../index.js",
+    "check-node-version": "node ./src/checkNodeVersion.cjs",
     "test": "jest --runInBand",
     "lint": "eslint ."
   };
@@ -95,7 +95,7 @@ async function getFilesFromCore(projectName) {
   await writeFile(`${projectName}/plugins.json`, JSON.stringify(pluginsData, null, 2));
 
   const checkNode = await getFileFromCore("src/checkNodeVersion.cjs");
-  await writeFile(`${projectName}/utils/checkNodeVersion.cjs`, checkNode);
+  await writeFile(`${projectName}/src/checkNodeVersion.cjs`, checkNode);
 
   const nvmrc = await getFileFromCore(".nvmrc", reactionRoot);
   await writeFile(`${projectName}/.nvmrc`, nvmrc);
