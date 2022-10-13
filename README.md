@@ -19,6 +19,8 @@ Before you can use the Open Commerce CLI, ensure you have all the base requireme
 - [Docker](https://www.docker.com/get-started/)
 - [Docker Compose](https://docs.docker.com/compose/)
 
+In addition, you need to have your system setup for SSH authentication with GitHub
+
 ## Installation 
 
 Before you can use the Open Commerce CLI you need to install the command line tool: 
