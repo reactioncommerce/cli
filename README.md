@@ -12,7 +12,7 @@ The CLI is the quickest and easiest way to develop on Open Commerce. It allows y
 ## Prerequisites 
 ---
 Before you can use the Open Commerce CLI, ensure you have all the base requirements for your operating system: 
-- We recommend installing [nmv](https://github.com/nvm-sh/nvm) 
+- We recommend installing [nvm](https://github.com/nvm-sh/nvm) 
 - [14.18.1 ≤ Node version < 16](https://nodejs.org/ja/blog/release/v14.18.1/)
 - [Yarn](https://yarnpkg.com/cli/install)
 - [Git](https://git-scm.com/)
