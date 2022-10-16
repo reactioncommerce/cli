@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "\n [Husky] Running commit-msg hook \n"
+npx --no -- commitlint --edit ${1}

@@ -13,7 +13,8 @@
   "scripts": {
     "test": "node --experimental-json-modules --no-warnings node_modules/mocha/bin/_mocha ./tests/*.* --full-trace",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -66,11 +67,6 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
   },
   "prettier": {
     "arrowParens": "always"
