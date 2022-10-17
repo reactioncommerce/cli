@@ -5,6 +5,7 @@ import getFilesFromRepo from "../utils/getFilesFromRepo.js";
 import pathExists from "../utils/pathExists.js";
 import Logger from "../utils/logger.js";
 import getFileFromCore, { reactionRoot } from "../utils/getFileFromCore.js";
+import copyTests from "../utils/copyTests.js";
 
 /**
  * @summary create project directory
@@ -104,7 +105,7 @@ async function getFilesFromCore(projectName) {
   const dotenv = await getFileFromCore(".env.example");
   const updatedDotEnv = updateEnv(dotenv);
   await writeFile(`${projectName}/.env`, updatedDotEnv);
-  await getFilesFromRepo("/tests/", `${projectName}/tests`);
+  await copyTests("/apps/reaction/tests/", `${projectName}/tests`);
   const jestConfig = await getFileFromCore("jest.config.cjs");
   await writeFile(`${projectName}/jest.config.cjs`, jestConfig);
   const babelConfig = await getFileFromCore("babel.config.cjs");
