@@ -5,6 +5,8 @@ import getFilesFromRepo from "../utils/getFilesFromRepo.js";
 import pathExists from "../utils/pathExists.js";
 import Logger from "../utils/logger.js";
 import getFileFromCore, { reactionRoot } from "../utils/getFileFromCore.js";
+import copyTests from "../utils/copyTests.js";
+import { babelConfigurationFileName, jestFileName } from "./constants.js";
 
 /**
  * @summary create project directory
@@ -13,9 +15,10 @@ import getFileFromCore, { reactionRoot } from "../utils/getFileFromCore.js";
  */
 async function makeProject(projectName) {
   await mkdir(projectName);
-  // create utils directory
-  await mkdir(`${projectName}/utils`);
+  // create src, custom-packages & tests directory
+  await mkdir(`${projectName}/src`);
   await mkdir(`${projectName}/custom-packages`);
+  await mkdir(`${projectName}/tests`);
 }
 
 /**
@@ -41,7 +44,7 @@ async function updatePackageJson(packageJson, projectName) {
     "start:dev": "npm run check-node-version && NODE_ENV=development NODE_OPTIONS='--experimental-modules --experimental-json-modules' nodemon ./index.js",
     "inspect": "NODE_ENV=development node --experimental-modules --experimental-json-modules --inspect ./src/index.js",
     "inspect-brk": "NODE_ENV=development node --experimental-modules --experimental-json-modules --inspect-brk ./src/index.js",
-    "check-node-version": "node ./utils/checkNodeVersion.cjs",
+    "check-node-version": "node ./src/checkNodeVersion.cjs",
     "test": "jest --runInBand",
     "lint": "eslint ."
   };
@@ -70,7 +73,7 @@ async function updatePackageJson(packageJson, projectName) {
  */
 function updateEnv(envData) {
   const env = parse(envData);
-  env.MONGO_URL = "mongodb://localhost:27017/reaction";
+  env.MONGO_URL = "mongodb://localhost:27017/test";
   return stringify(env);
 }
 
@@ -95,7 +98,7 @@ async function getFilesFromCore(projectName) {
   await writeFile(`${projectName}/plugins.json`, JSON.stringify(pluginsData, null, 2));
 
   const checkNode = await getFileFromCore("src/checkNodeVersion.cjs");
-  await writeFile(`${projectName}/utils/checkNodeVersion.cjs`, checkNode);
+  await writeFile(`${projectName}/src/checkNodeVersion.cjs`, checkNode);
 
   const nvmrc = await getFileFromCore(".nvmrc", reactionRoot);
   await writeFile(`${projectName}/.nvmrc`, nvmrc);
@@ -103,6 +106,11 @@ async function getFilesFromCore(projectName) {
   const dotenv = await getFileFromCore(".env.example");
   const updatedDotEnv = updateEnv(dotenv);
   await writeFile(`${projectName}/.env`, updatedDotEnv);
+  await copyTests(`${projectName}/tests`);
+  const jestConfig = await getFileFromCore(jestFileName);
+  await writeFile(`${projectName}/jest.config.cjs`, jestConfig);
+  const babelConfig = await getFileFromCore(babelConfigurationFileName);
+  await writeFile(`${projectName}/babel.config.cjs`, babelConfig);
   return true;
 }
 
