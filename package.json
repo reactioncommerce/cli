@@ -38,14 +38,14 @@
     "is-ci": "^3.0.1",
     "jest": "^28.1.1",
     "meant": "^2.0.1",
-    "node-fetch": "^3.2.6",
+    "node-fetch": "^3.2.10",
     "prompts": "^2.4.2",
     "public-ip": "^5.0.0",
     "rimraf": "^3.0.2",
-    "simple-git": "^2.48.0",
+    "simple-git": "^3.5.0",
     "sinon": "^14.0.0",
     "sync-fetch": "^0.3.1",
-    "update-notifier": "^5.1.0",
+    "update-notifier": "^6.0.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
