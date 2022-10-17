@@ -5,8 +5,6 @@ import getFilesFromRepo from "../utils/getFilesFromRepo.js";
 import pathExists from "../utils/pathExists.js";
 import Logger from "../utils/logger.js";
 import getFileFromCore, { reactionRoot } from "../utils/getFileFromCore.js";
-import copyTests from "../utils/copyTests.js";
-import { babelConfigurationFileName, jestFileName } from "./constants.js";
 
 /**
  * @summary create project directory
@@ -73,7 +71,7 @@ async function updatePackageJson(packageJson, projectName) {
  */
 function updateEnv(envData) {
   const env = parse(envData);
-  env.MONGO_URL = "mongodb://localhost:27017/test";
+  env.MONGO_URL = "mongodb://localhost:27017/reaction";
   return stringify(env);
 }
 
@@ -106,10 +104,10 @@ async function getFilesFromCore(projectName) {
   const dotenv = await getFileFromCore(".env.example");
   const updatedDotEnv = updateEnv(dotenv);
   await writeFile(`${projectName}/.env`, updatedDotEnv);
-  await copyTests(`${projectName}/tests`);
-  const jestConfig = await getFileFromCore(jestFileName);
+  await getFilesFromRepo("/tests/", `${projectName}/tests`);
+  const jestConfig = await getFileFromCore("jest.config.cjs");
   await writeFile(`${projectName}/jest.config.cjs`, jestConfig);
-  const babelConfig = await getFileFromCore(babelConfigurationFileName);
+  const babelConfig = await getFileFromCore("babel.config.cjs");
   await writeFile(`${projectName}/babel.config.cjs`, babelConfig);
   return true;
 }
