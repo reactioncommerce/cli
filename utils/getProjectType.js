@@ -9,11 +9,25 @@ const validProjectTypes = ["api", "admin-meteor", "storefront-example"];
  */
 export default async function getProjectType() {
   Logger.info("Getting project type");
-  const packageJson = fs.readFileSync("package.json", {
-    encoding: "utf8",
-    flag: "r"
-  });
-  const packageJsonData = JSON.parse(packageJson);
+  try {
+    const packageJson = fs.readFileSync("package.json", {
+      encoding: "utf8",
+      flag: "r"
+    });
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      Logger.error("Cannot read package.json in current directory");
+      return "";
+    } else {
+      throw err;
+    }
+  }
+  try {
+    const packageJsonData = JSON.parse(packageJson);
+  } catch (err) {
+    Logger.error("Error while parsing package.json");
+    return "";
+  }
   const { projectType } = packageJsonData;
 
   if (!projectType || projectType === "") {

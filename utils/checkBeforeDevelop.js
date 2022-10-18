@@ -1,6 +1,7 @@
 import Logger from "../utils/logger.js";
 import pathExists from "./pathExists.js";
 import checkPort from "./checkPort.js";
+import getProjectType from "./getProjectType.js";
 
 /**
  * @summary check that the API server is running
@@ -17,6 +18,10 @@ async function checkForApi() {
  * @returns {Promise<boolean>} - If everything is ready for develop
  */
 export default async function checkBeforeDevelop(type = "api") {
+  if ( await getProjectType() !== type ) {
+    Logger.error(`Cannot run develop, no project of type "${type}" in current directory.`);
+    return false;
+  }
   if (!await pathExists("node_modules")) {
     if (type === "storefront") {
       Logger.error("It looks like you have not run `yarn install` in this directory");
