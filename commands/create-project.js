@@ -9,12 +9,25 @@ const methodMap = {
   api: createProjectApi,
   admin: createProjectAdmin,
   storefront: createProjectStorefront,
-  demo: createProjectDemo
+  demo: createProjectDemo,
+  all: createProjectAll
 };
 
 const extraDependencyMap = {
   storefront: ["yarn"]
 };
+
+/**
+ * @summary creates api, admin, and storefront projects at same time in separate directories.
+ * @param {String} projectName - The name of the project to create
+ * @param {Object} options - Project options
+ */
+export async function createProjectAll(projectName, options) {
+  createProjectApi(projectName + "Api", options);
+  createProjectAdmin(projectName + "Admin", options);
+  createProjectStorefront(projectName + "Storefront", options);
+  return true;
+}
 
 /**
  * @summary create one of the project types
