@@ -24,10 +24,10 @@ async function makeProject(projectName) {
  * @summary fetch the right nodemon from root
  * @return {Promise<string>} - the nodemon package.json line
  */
-async function getNodeMonVersionFromRoot() {
+async function getDevDependenciesFromRoot() {
   const rootPackage = await getFileFromCore("package.json", reactionRoot);
   const packageData = JSON.parse(rootPackage);
-  return packageData.devDependencies.nodemon;
+  return packageData.devDependencies;
 }
 
 
@@ -61,7 +61,13 @@ async function updatePackageJson(packageJson, projectName) {
   delete packageData.bugs;
   packageData.main = "./index.js";
   packageData.nodemonConfig.watch.push("custom-packages");
-  packageData.devDependencies.nodemon = await getNodeMonVersionFromRoot();
+  packageData.devDependencies = {
+    ...packageData.devDependencies,
+    ...(await getDevDependenciesFromRoot())
+  };
+
+  delete packageData?.devDependencies["graphql-schema-linter"];
+  delete packageData["graphql-schema-linter"];
   return JSON.stringify(packageData, null, 2);
 }
 
@@ -86,10 +92,6 @@ async function getFilesFromCore(projectName) {
   const packageJson = await getFileFromCore("package.json");
   const updatedPackageJson = await updatePackageJson(packageJson, projectName);
   await writeFile(`${projectName}/package.json`, updatedPackageJson);
-
-  const packageLock = await getFileFromCore("package-lock.json");
-  await writeFile(`${projectName}/package-lock.json`, packageLock);
-
   const pluginsJson = await getFileFromCore("plugins.json");
   // Add example plugin to plugins.json
   const pluginsData = JSON.parse(pluginsJson);
@@ -106,7 +108,11 @@ async function getFilesFromCore(projectName) {
   const updatedDotEnv = updateEnv(dotenv);
   await writeFile(`${projectName}/.env`, updatedDotEnv);
   const babelConfig = await getFileFromCore("babel.config.cjs");
-  await Promise.all([copyTests("/apps/reaction/tests/", `${projectName}`), writeFile(`${projectName}/babel.config.cjs`, babelConfig)]);
+  const eslintConfig = await getFileFromCore(".eslintrc.cjs", reactionRoot);
+  await Promise.all([
+    copyTests("/apps/reaction/tests/", `${projectName}`),
+    writeFile(`${projectName}/babel.config.cjs`, babelConfig),
+    writeFile(`${projectName}/.eslintrc.cjs`, eslintConfig)]);
   return true;
 }
 
