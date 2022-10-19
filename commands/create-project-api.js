@@ -105,13 +105,8 @@ async function getFilesFromCore(projectName) {
   const dotenv = await getFileFromCore(".env.example");
   const updatedDotEnv = updateEnv(dotenv);
   await writeFile(`${projectName}/.env`, updatedDotEnv);
-  await copyTests("/apps/reaction/tests/", `${projectName}/tests`);
-  const createProjectAPIJestEnvConfig = await getFileFromCore("/testTemplates/createProjectAPIJestTemplate.js");
-  await writeFile(`${projectName}/tests/util/setupJestTests.js`, createProjectAPIJestEnvConfig);
-  const jestConfig = await getFileFromCore("jest.config.cjs");
-  await writeFile(`${projectName}/jest.config.cjs`, jestConfig);
   const babelConfig = await getFileFromCore("babel.config.cjs");
-  await writeFile(`${projectName}/babel.config.cjs`, babelConfig);
+  await Promise.all([copyTests("/apps/reaction/tests/", `${projectName}`), writeFile(`${projectName}/babel.config.cjs`, babelConfig)]);
   return true;
 }
 
