@@ -12,5 +12,7 @@ const pkg = require("../package.json");
  */
 export default async function checkForNewVersion() {
   const notifier = updateNotifier({ pkg });
-  notifier.notify();
+  const updateCommand = "npm i -g reaction-cli";
+  const updateMessage = `Run ${updateCommand} to update.`;
+  notifier.notify({ message: updateMessage });
 }
