@@ -24,7 +24,7 @@ program
 program
   .command("create-project")
   .description("Create a new Open Commerce project of one of several types")
-  .addArgument(new commander.Argument("<type>", "which project type to create").choices(["api", "storefront", "admin", "demo"]))
+  .addArgument(new commander.Argument("<type>", "which project type to create").choices(["api", "storefront", "admin", "all", "demo"]))
   .argument("<name>", "what to name the project")
   // .option("--populate")
   .option("--skip-meteor-install", "Skip Meteor install when creating admin project")
