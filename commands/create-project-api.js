@@ -77,6 +77,14 @@ function updateEnv(envData) {
 }
 
 /**
+ * @summary update npmrc configuration
+ * @param {String} npmrcData - file extracted from the reaction repo
+ * @returns {string} update npmrc content
+ */
+function updateNpmrc(npmrcData) {
+  return npmrcData.indexOf("legacy-peer-deps") > -1 ? npmrcData : `${npmrcData}legacy-peer-deps=true\n`;
+}
+/**
  * @summary get files directory from core repo
  * @param {String} projectName - The name of the project we are creating
  * @returns {Promise<Boolean>} True if success
@@ -102,6 +110,8 @@ async function getFilesFromCore(projectName) {
   const nvmrc = await getFileFromCore(".nvmrc", reactionRoot);
   await writeFile(`${projectName}/.nvmrc`, nvmrc);
 
+  const npmrc = await getFileFromCore(".npmrc", reactionRoot);
+  await writeFile(`${projectName}/.npmrc`, updateNpmrc(npmrc));
   const dotenv = await getFileFromCore(".env.example");
   const updatedDotEnv = updateEnv(dotenv);
   await writeFile(`${projectName}/.env`, updatedDotEnv);
