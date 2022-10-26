@@ -21,11 +21,12 @@ const extraDependencyMap = {
  * @summary creates api, admin, and storefront projects at same time in separate directories.
  * @param {String} projectName - The name of the project to create
  * @param {Object} options - Project options
+ * @returns {Boolean} {Promise<boolean>} return true when successful
  */
 export async function createProjectAll(projectName, options) {
-  createProjectApi(projectName + "Api", options);
-  createProjectAdmin(projectName + "Admin", options);
-  createProjectStorefront(projectName + "Storefront", options);
+  createProjectApi(`${projectName}Api`, options);
+  createProjectAdmin(`${projectName}Admin`, options);
+  createProjectStorefront(`${projectName}Storefront`, options);
   return true;
 }
 

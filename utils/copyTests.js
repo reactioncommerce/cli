@@ -13,7 +13,7 @@ import getFileFromCore from "./getFileFromCore.js";
  * @param {String} destinationPath destination folder
  * @returns {Boolean} {Promise<boolean>} return true when successful
  */
-const copyTests = async (sourcePath, destinationPath) => {
+export default async function copyTests(sourcePath, destinationPath) {
   const appPrefix = `test_utils${(Math.random() + 1).toString(36).substring(7)}`;
   /**
    * Create a temporary directory to update the jestProcessEnv received from upstream
@@ -28,6 +28,4 @@ const copyTests = async (sourcePath, destinationPath) => {
   /* Clean up the temporary directory*/
   await rm(tempDirectory, { recursive: true });
   return true;
-};
-
-export default copyTests;
+}
