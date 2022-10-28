@@ -1,4 +1,4 @@
-FROM reactioncommerce/reaction:4.1.5
+FROM reactioncommerce/reaction@sha256-5a4c8f650a3cfddbf59e020c8dab7e33493c9d42106dcde3add0006ee2928ba4
 USER root
 RUN npm install -g husky is-ci is-docker
 USER node
