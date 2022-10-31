@@ -78,7 +78,7 @@ Then run:
 ```
 npm install 
 ```
-Finaly run:
+Finally run:
 ```
 reaction develop api
   ```
@@ -211,6 +211,8 @@ reaction create-project demo <you-demo-name>
 cd <your-demo-name>
 ```
 Check that the storefront (localhost:4000), graphQL server (localhost:3000) and admin (localhost:4080) are all running (this might take a minute or so).
+
+**NOTE:** All data for a demo is stored on its docker volume named `<my-demo>_mongo-db4demo`. To completely clear the data used by a demo run `docker-compose down --volumes`. Alternatively you can list the volumes using `docker volume ls` and remove it by name using `docker volume rm <my-demo>_mongo-db4demo`.
 
 ## Contribution
 
