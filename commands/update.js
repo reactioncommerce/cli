@@ -111,12 +111,18 @@ export default async function update(options) {
   const remoteDependencies = await getRemoteDependencies();
 
   const outdatedPackages = pluginPackages
-    .map(({ name, version }) => ({
-      name,
-      version,
-      remoteVersion: remoteDependencies[name],
-      outdated: compareVersions.compare(cleanVersion(remoteDependencies[name]), cleanVersion(version), ">")
-    }))
+    .map(({ name, version }) => {
+      const remoteDependency = remoteDependencies[name];
+      if (remoteDependency === undefined) {
+        Logger.warn(`Plugin ${name} used by the local project has been officially deprecated.`);
+      }
+      return {
+        name,
+        version,
+        remoteVersion: remoteDependencies[name],
+        outdated: remoteDependency && compareVersions.compare(cleanVersion(remoteDependency), cleanVersion(version), ">")
+      };
+    })
     .filter(({ outdated }) => outdated);
 
   if (outdatedPackages.length === 0) {
