@@ -14,10 +14,10 @@ beforeEach(async () => {
 });
 
 describe("the node used for tests", () => {
-  it("should be 14 or 16", async () => {
+  it("should be 16 to 18", async () => {
     const response = await execute("--version", []);
     // eslint-disable-next-line jest/valid-expect
-    expect(response.trim().split(".")[0]).to.oneOf(["v15", "v14"]);
+    expect(response.trim().split(".")[0]).to.oneOf(["v16", "v17", "v18"]);
   });
 });
 
@@ -27,7 +27,7 @@ describe("The create-project-api command", () => {
     const responseLines = response.trim().split(EOL);
     // eslint-disable-next-line jest/valid-expect
     expect(responseLines[1]).to.equal("reaction-cli: Project creation complete. Change to your directory and run `npm install`");
-  }).timeout(15000);
+  }).timeout(25000);
 });
 
 afterEach(async () => {

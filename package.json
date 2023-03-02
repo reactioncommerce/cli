@@ -7,7 +7,7 @@
     "reaction": "index.js"
   },
   "engines": {
-    "node": ">=14.18.1"
+    "node": ">=18.10.0"
   },
   "type": "module",
   "scripts": {

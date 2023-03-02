@@ -11,7 +11,7 @@ import checkBeforeDevelop from "../utils/checkBeforeDevelop.js";
 export default async function developStorefront(options) {
   if (!await checkBeforeDevelop("storefront")) return;
   Logger.info("Starting Open Commerce Admin Application Server in dev mode", { options });
-  const storefront = spawn("yarn", ["run", "start:dev"]);
+  const storefront = spawn("yarn", ["run", "start:dev:latest"]);
   storefront.stdout.on("data", (data) => {
     // eslint-disable-next-line no-console
     console.log(data.toString().trim()); // Echo output of command to console

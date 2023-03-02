@@ -2,7 +2,7 @@ import { spawn } from "child_process";
 import { sync as cmdExists } from "command-exists";
 import Logger from "./logger.js";
 
-const supportedNodeVersions = ["v14", "v15"];
+const supportedNodeVersions = ["v16", "v17", "v18"];
 
 /**
  * @summary validate that we are using a supported version of node
@@ -18,8 +18,8 @@ async function checkNodeVersion() {
         Logger.error(`Your node version must be one of: [ ${supportedNodeVersions.join(", ")} ]`);
         resolve(nodeOk);
       }
-      if (majorVersion === "v14" && minorVersion < "18") {
-        Logger.error("Your node version must be greater or equal to 14.18.1 and less than 16");
+      if (majorVersion === "v18" && minorVersion > "10") {
+        Logger.error("Your node version must be greater than 16 and lesser or equal to 18.10.0");
         resolve(nodeOk);
       }
       nodeOk = true;
