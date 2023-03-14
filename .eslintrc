@@ -1,6 +1,6 @@
 {
   "root": true,
-  "parser": "espree",
+  "parser": "@babel/eslint-parser",
   "extends": [
   "plugin:node/recommended",
   "plugin:promise/recommended",
@@ -13,6 +13,10 @@
     "jasmine": true
 },
   "parserOptions": {
+    "requireConfigFile": false,
+    "babelOptions": {
+      "plugins": ["@babel/plugin-syntax-import-assertions"]
+    },
   "sourceType": "module",
     "ecmaVersion": 12,
     "ecmaFeatures": {

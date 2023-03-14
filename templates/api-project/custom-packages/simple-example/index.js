@@ -1,7 +1,7 @@
 // This plugin example is only to show you how plugins can be added. For a more complete plugin template
 // use the `create-plugin` command
 import Logger from "@reactioncommerce/logger";
-import packageData from "./package.json";
+import packageData from "./package.json" assert { type: "json" };
 
 const { version } = packageData;
 

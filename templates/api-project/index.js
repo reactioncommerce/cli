@@ -1,7 +1,7 @@
 import { importPluginsJSONFile, ReactionAPICore } from "@reactioncommerce/api-core";
 import dotenv from "dotenv";
 import Logger from "@reactioncommerce/logger";
-import packageJson from "./package.json";
+import packageJson from "./package.json" assert { type: "json" };
 
 const api = new ReactionAPICore({
   serveStaticPaths: ["public"],
