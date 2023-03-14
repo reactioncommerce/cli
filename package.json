@@ -7,7 +7,7 @@
     "reaction": "index.js"
   },
   "engines": {
-    "node": ">=14.18.1"
+    "node": ">=18.10.0"
   },
   "type": "module",
   "scripts": {
@@ -53,6 +53,8 @@
     "@commitlint/cli": "^16.0.2",
     "@commitlint/config-conventional": "^16.0.0",
     "babel-eslint": "^10.1.0",
+    "@babel/eslint-parser": "^7.18.9",
+    "@babel/plugin-syntax-import-assertions": "^7.20.0",
     "eslint": "^8.7.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jest": "^27.0.1",

@@ -1,6 +1,6 @@
 # CLI manual test plan
 
-## Using Node 14.18.1
+## Using Node 18.10.0
 
 1. Clone this repo to your local machine
 2. Install package as global (`npm install -g`)

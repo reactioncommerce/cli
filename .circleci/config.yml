@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: 'node:14'
+      - image: 'node:18.10.0'
     dependencies:
       pre:
         - 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
@@ -15,7 +15,7 @@ jobs:
           key: 'v1-dependencies-{{ checksum "package.json" }}'
   deploy:
     docker:
-      - image: 'node:14'
+      - image: 'node:18.10.0'
     steps:
       - checkout
       - restore_cache:
@@ -25,7 +25,7 @@ jobs:
       - run: npx semantic-release
   lint:
     docker:
-      - image: 'node:14'
+      - image: 'node:18.10.0'
     steps:
       - checkout
       - restore_cache:
@@ -35,7 +35,7 @@ jobs:
       - run: npm run lint
   test:
     docker:
-      - image: 'node:14'
+      - image: 'node:18.10.0'
     steps:
       - checkout
       - restore_cache:
